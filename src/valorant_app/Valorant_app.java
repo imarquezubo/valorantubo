@@ -10,6 +10,7 @@ package valorant_app;
  */
 public class Valorant_app {
 
+    String nombre;
     /**
      * @param args the command line arguments
      */

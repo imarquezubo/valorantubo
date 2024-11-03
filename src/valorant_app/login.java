@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package valorant_app;
 
 import java.awt.Color;
@@ -13,6 +10,7 @@ import javax.swing.JOptionPane;
  */
 public class login extends javax.swing.JFrame {
 
+    public static int jugadorID;
     Conexion con = new Conexion();
     Query query = new Query();
     /**
@@ -142,28 +140,26 @@ public class login extends javax.swing.JFrame {
     }//GEN-LAST:event_lblCrearUsuarioMouseExited
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        // TODO add your handling code here:
         String pass = txtPassword.getText();
-        String nombre = txtNombre.getText();
-        
-        
-       
-        
-        
-        if(query.comprobarExisteNombre(nombre)){
-            if(pass.equals(query.getPassword(nombre))){
-                JOptionPane.showMessageDialog(null, "Iniciado sesion con exito");
-                //aqui iria el codigo para derivar a la parte de historial_partida
-            } else {
-                JOptionPane.showMessageDialog(null, "Contraseña Incorrecta");
-            }
+    String nombre = txtNombre.getText();
+
+    if (query.comprobarExisteNombre(nombre)) {
+        if (pass.equals(query.getPassword(nombre))) {
+            JOptionPane.showMessageDialog(null, "Iniciado sesión con éxito");
+            
+            // Cierra la ventana de login y abre Mi Perfil con el nombre del usuario
+            this.dispose();
+            new Miperfil(nombre).setVisible(true); // Aquí pasas el nombre al JFrame
         } else {
-            JOptionPane.showMessageDialog(null, "No existe el usuario");
+            JOptionPane.showMessageDialog(null, "Contraseña Incorrecta");
         }
-        
-        
-        txtPassword.setText("");
-        txtNombre.setText("");
+    } else {
+        JOptionPane.showMessageDialog(null, "No existe el usuario");
+    }
+
+    txtPassword.setText("");
+    txtNombre.setText("");
+
     }//GEN-LAST:event_btnLoginActionPerformed
 
     /**

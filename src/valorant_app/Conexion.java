@@ -43,13 +43,17 @@ public class Conexion {
     
     void comprobarConexion(){
         try {
-            conexion = DriverManager.getConnection(url,user,pass);
+            conexion = DriverManager.getConnection(url, user, pass);
             JOptionPane.showMessageDialog(null,"Conexión a la base de datos con éxito");
         } catch (SQLException ex) {
-            //Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "Error al conectarse a la base de datos");
         }
     }
-    
+    public Connection getConnection() {
+        if (conexion == null) { // Si la conexión aún no está establecida
+            conectar();         // Se conecta a la base de datos
+        }
+        return conexion;
+    }
     
 }

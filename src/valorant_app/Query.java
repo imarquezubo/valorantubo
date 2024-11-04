@@ -4,13 +4,20 @@
  */
 package valorant_app;
 
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import java.sql.PreparedStatement;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 /**
  *
@@ -107,18 +114,18 @@ public class Query extends Conexion {
         return password;
     }
     
-    void insertUsuario(String nombre, String correo, String password){
-         conectar();
+    public void insertUsuario(String nombre, String correo, String password) {
+    conectar();
     try {
-        // Asumiendo que el id_rango para HIERRO 1 es 1, cámbialo si es diferente
-        int idRangoHierro1 = 1; // Cambia esto si el ID es diferente
+        // Establecer el id_rango para "Unranked" a 9
+        int idRangoUnranked = 9; // Cambia esto a 9 para que corresponda con "Unranked"
         String query = "INSERT INTO jugador(nombre, correo, contrasena, nivel, id_rango) VALUES(?, ?, ?, ?, ?)";
         PreparedStatement ps = conexion.prepareStatement(query);
         ps.setString(1, nombre);
         ps.setString(2, correo);
         ps.setString(3, password);
         ps.setInt(4, 1); // Nivel 1
-        ps.setInt(5, idRangoHierro1); // ID del rango "HIERRO 1"
+        ps.setInt(5, idRangoUnranked); // ID del rango "Unranked"
         ps.executeUpdate();
         JOptionPane.showMessageDialog(null, "¡Usuario creado con éxito!");
     } catch (SQLException ex) {
@@ -127,8 +134,7 @@ public class Query extends Conexion {
     } finally {
         cerrarConexion();
     }
-        
-    }
+}
 
     String getCorreo(String nombreUsuario) {
        String correo = "";
@@ -178,9 +184,9 @@ public class Query extends Conexion {
     }
     return userData; // Retorna el array con los datos
     }
-    public void llenarHistorial(JTable historial,String idJugador) {
+    public void llenarHistorial(JTable historial, String idJugador) {
     DefaultTableModel model = new DefaultTableModel();
-    model.setColumnIdentifiers(new String[]{"ID", "Mapa", "Modo", "Agente", "Fecha", "Rol del Equipo", "Rondas Ganadas", "Resultado"});
+    model.setColumnIdentifiers(new String[]{"ID", "Mapa", "Modo", "Agente", "Fecha", "Rol del Equipo", "Rondas Ganadas", "Resultado", "Acción"});
     historial.setModel(model);
 
     conectar();
@@ -219,14 +225,80 @@ public class Query extends Conexion {
             String resultadoPartida = (rolEquipo.equals("Atacante") && rondasGanadas >= 13) || 
                                       (rolEquipo.equals("Defensor") && rondasGanadas >= 13) ? "Victoria" : "Derrota";
 
-            model.addRow(new Object[]{id, mapa, modo, agente, fecha, rolEquipo, rondasGanadas, resultadoPartida});
+            // Agrega una fila con un botón
+            model.addRow(new Object[]{id, mapa, modo, agente, fecha, rolEquipo, rondasGanadas, resultadoPartida, "Ver Detalles"});
         }
     } catch (SQLException ex) {
         Logger.getLogger(Query.class.getName()).log(Level.SEVERE, null, ex);
     } finally {
         cerrarConexion();
     }
+
+    // Agrega un TableCellRenderer y TableCellEditor para la columna de botones
+    historial.getColumn("Acción").setCellRenderer(new ButtonRenderer());
+    historial.getColumn("Acción").setCellEditor(new ButtonEditor(new JCheckBox(), historial));
 }
+    class ButtonRenderer extends JButton implements TableCellRenderer {
+    public ButtonRenderer() {
+        setOpaque(true);
+    }
+
+    @Override
+    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+        setText((value == null) ? "Ver Detalles" : value.toString());
+        return this;
+    }
+}
+    class ButtonEditor extends DefaultCellEditor {
+    private JButton button;
+    private String label;
+    private boolean clicked;
+    private JTable table;
+
+    public ButtonEditor(JCheckBox checkBox, JTable table) {
+        super(checkBox);
+        this.table = table;
+        button = new JButton();
+        button.setOpaque(true);
+
+        // DIEGO PON ACA TU QUERY
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int filaSeleccionada = table.getSelectedRow();
+                if (filaSeleccionada != -1) {
+                    String idPartida = table.getValueAt(filaSeleccionada, 0).toString();
+                    String fecha = table.getValueAt(filaSeleccionada, 4).toString();
+                    JOptionPane.showMessageDialog(button, "Funciona partida: " + idPartida+ " Fecha: "+fecha);
+                }
+                fireEditingStopped();
+            }
+        });
+    }
+    public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+        label = (value == null) ? "Ver Detalles" : value.toString();
+        button.setText(label);
+        clicked = true;
+        return button;
+    }
+    public Object getCellEditorValue() {
+        if (clicked) {
+            // Aquí puedes manejar acciones adicionales si es necesario
+            clicked = false;
+        }
+        return label;
+    }
+    public boolean stopCellEditing() {
+        clicked = false;
+        return super.stopCellEditing();
+    }
+
+    @Override
+    protected void fireEditingStopped() {
+        super.fireEditingStopped();
+    }
+}
+    
     
     private void cerrarConexion() {
         try {

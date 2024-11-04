@@ -21,6 +21,7 @@ public class lista_de_partidas extends javax.swing.JFrame {
     private String nombre;
     FondoPanel fondo=new FondoPanel();
     
+    
 
     /**
      * Creates new form lista_de_partidas
@@ -30,6 +31,7 @@ public class lista_de_partidas extends javax.swing.JFrame {
         query = new Query();
         this.setContentPane(fondo);
     }
+    
 
     lista_de_partidas(String nombre, String idJugador) {
         initComponents();
@@ -76,7 +78,12 @@ public class lista_de_partidas extends javax.swing.JFrame {
 
             }
         ));
-        historial.setEnabled(false);
+        historial.setCellSelectionEnabled(true);
+        historial.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                historialMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(historial);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -190,6 +197,11 @@ public class lista_de_partidas extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jScrollPane1MouseClicked
 
+    private void historialMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_historialMouseClicked
+
+    }//GEN-LAST:event_historialMouseClicked
+
+    
 
     /**
      * @param args the command line arguments

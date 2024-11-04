@@ -49,12 +49,11 @@ private String nombreUsuario;
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabelNombreUsuario.setFont(new java.awt.Font("Segoe UI Black", 0, 24)); // NOI18N
-        jLabelNombreUsuario.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelNombreUsuario.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabelNombreUsuario.setForeground(new java.awt.Color(255, 0, 51));
         jLabelNombreUsuario.setText("Nombre de Usuario");
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setText("Acceder a Mis Datos");
 
         VerPerfil.setText("Ver Mi Perfil");
@@ -69,70 +68,69 @@ private String nombreUsuario;
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(84, 84, 84)
-                .addComponent(jLabelNombreUsuario)
-                .addGap(0, 106, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(127, 127, 127)
-                        .addComponent(jLabel2))
+                        .addGap(92, 92, 92)
+                        .addComponent(VerPerfil))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(144, 144, 144)
-                        .addComponent(VerPerfil)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(32, 32, 32)
+                        .addComponent(jLabelNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(48, 48, 48)
+                        .addComponent(jLabel2)))
+                .addContainerGap(208, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(24, 24, 24)
                 .addComponent(jLabelNombreUsuario)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 123, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(VerPerfil)
-                .addGap(65, 65, 65))
+                .addGap(71, 71, 71))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(30, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(16, 16, 16))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void VerPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerPerfilActionPerformed
-          // Suponiendo que tienes un campo de texto para el nombre de usuario
-    Miperfil miPerfil = new Miperfil(nombreUsuario);
-    miPerfil.setVisible(true);
-    this.dispose(); // Cerrar la ventana de inicio de sesión
-    
-    Query query = new Query(); // Crear una instancia de la clase Query
-    String[] userData = query.getUserData(nombreUsuario); // Obtener los datos del usuario
+        // Suponiendo que tienes un campo de texto para el nombre de usuario
+        Miperfil miPerfil = new Miperfil(nombreUsuario);
+        miPerfil.setVisible(true);
+        this.dispose(); // Cerrar la ventana de inicio de sesión
 
-    if (userData != null) {
-        String nombre = userData[0]; // Nombre de usuario
-        String correoElectronico = userData[1]; // Correo electrónico
+        Query query = new Query(); // Crear una instancia de la clase Query
+        String[] userData = query.getUserData(nombreUsuario); // Obtener los datos del usuario
 
-        DatosPerfil perfil = new DatosPerfil(nombre, correoElectronico);
-        perfil.setVisible(true);
-        this.dispose(); // Cerrar la ventana actual si es necesario
-    } else {
-        JOptionPane.showMessageDialog(this, "Error al cargar los datos del perfil.", "Error", JOptionPane.ERROR_MESSAGE);
-    }
+        if (userData != null) {
+            String nombre = userData[0]; // Nombre de usuario
+            String correoElectronico = userData[1]; // Correo electrónico
+
+            DatosPerfil perfil = new DatosPerfil(nombre, correoElectronico);
+            perfil.setVisible(true);
+            this.dispose(); // Cerrar la ventana actual si es necesario
+        } else {
+            JOptionPane.showMessageDialog(this, "Error al cargar los datos del perfil.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_VerPerfilActionPerformed
 
     /**
@@ -181,7 +179,7 @@ class FondoPanel extends JPanel {
 
     public FondoPanel() {
         // Cambia la ruta de acuerdo a la ubicación real de tu imagen en el paquete
-        imagen = new ImageIcon(getClass().getResource("/imagenes/valooo3.png")).getImage();
+        imagen = new ImageIcon(getClass().getResource("/imagenes/valorant1.png")).getImage();
     }
 
     @Override

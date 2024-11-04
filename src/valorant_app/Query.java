@@ -84,25 +84,6 @@ public class Query extends Conexion {
         }
         return nombre;
     }
-    String obtenerIdJugador(String nombre) {
-        String idJugador = "";
-        conectar();
-        try {
-            String query = "SELECT id_jugador FROM jugador WHERE nombre = ?";
-            PreparedStatement ps = conexion.prepareStatement(query);
-            ps.setString(1, nombre);
-            resultado = ps.executeQuery();
-            
-            if (resultado.next()) {
-                idJugador = resultado.getString(1);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(Query.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            cerrarConexion();
-        }
-        return idJugador;
-    }
     
     
     
@@ -255,6 +236,25 @@ public class Query extends Conexion {
     } catch (SQLException ex) {
         Logger.getLogger(Query.class.getName()).log(Level.SEVERE, null, ex);
     }
+    }
+    String obtenerIdJugador(String nombre) {
+        String idJugador = "";
+        conectar();
+        try {
+            String query = "SELECT id_jugador FROM jugador WHERE nombre = ?";
+            PreparedStatement ps = conexion.prepareStatement(query);
+            ps.setString(1, nombre);
+            resultado = ps.executeQuery();
+
+            if (resultado.next()) {
+                idJugador = resultado.getString(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Query.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            cerrarConexion();
+        }
+        return idJugador;
     }
     
 }

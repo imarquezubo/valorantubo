@@ -192,4 +192,4 @@ class FondoPanel extends JPanel {
     }
 }
 
-}
+}  //listo

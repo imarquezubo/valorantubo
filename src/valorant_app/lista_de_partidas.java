@@ -4,6 +4,8 @@
  */
 package valorant_app;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author adolf
@@ -11,6 +13,7 @@ package valorant_app;
 public class lista_de_partidas extends javax.swing.JFrame {
     private Query query;
     private String idJugador;
+    private String nombre;
 
     /**
      * Creates new form lista_de_partidas
@@ -23,6 +26,7 @@ public class lista_de_partidas extends javax.swing.JFrame {
     lista_de_partidas(String nombre, String idJugador) {
         initComponents();
         query = new Query();
+        this.nombre=nombre;
         this.idJugador=idJugador;
         query.llenarHistorial(historial, idJugador); 
         usuario.setText(nombre);
@@ -93,14 +97,17 @@ public class lista_de_partidas extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(774, Short.MAX_VALUE))
+                        .addContainerGap(965, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(perfil1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(121, 121, 121)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(perfil1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(121, 121, 121))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)))
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(perfil, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -110,21 +117,24 @@ public class lista_de_partidas extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 33, Short.MAX_VALUE)
+                        .addComponent(jLabel2)
+                        .addGap(72, 72, 72))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(usuario, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
-                            .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(usuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(perfil1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(perfil, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(22, 22, 22))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel2)
-                        .addGap(72, 72, 72)))
+                        .addGap(22, 22, 22)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31))
         );
@@ -133,11 +143,24 @@ public class lista_de_partidas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void perfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_perfilActionPerformed
-        // TODO add your handling code here:
+    String[] userData = query.getUserData(nombre); // Obtener los datos del usuario
+
+    if (userData != null) {
+        String nombre = userData[0]; // Nombre de usuario
+        String correoElectronico = userData[1]; // Correo electrónico
+
+        DatosPerfil perfil = new DatosPerfil(nombre, correoElectronico);
+        perfil.setVisible(true);
+        this.dispose(); // Cerrar la ventana actual si es necesario
+    } else {
+        JOptionPane.showMessageDialog(this, "Error al cargar los datos del perfil.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_perfilActionPerformed
 
     private void perfil1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_perfil1ActionPerformed
         // TODO add your handling code here:
+        this.setVisible(false);
+        new login().setVisible(true);
     }//GEN-LAST:event_perfil1ActionPerformed
 
     /**

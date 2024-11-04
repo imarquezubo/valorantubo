@@ -175,7 +175,6 @@ public class lista_de_partidas extends javax.swing.JFrame {
 
         DatosPerfil perfil = new DatosPerfil(nombre, correoElectronico);
         perfil.setVisible(true);
-        this.dispose(); // Cerrar la ventana actual si es necesario
     } else {
         JOptionPane.showMessageDialog(this, "Error al cargar los datos del perfil.", "Error", JOptionPane.ERROR_MESSAGE);
     }

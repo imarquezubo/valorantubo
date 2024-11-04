@@ -45,6 +45,12 @@ public class login extends javax.swing.JFrame {
 
         jLabel2.setText("Nombre de Usuario");
 
+        txtNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombreActionPerformed(evt);
+            }
+        });
+
         jLabel3.setText("Contraseña");
 
         btnLogin.setText("Iniciar Sesión");
@@ -140,16 +146,17 @@ public class login extends javax.swing.JFrame {
     }//GEN-LAST:event_lblCrearUsuarioMouseExited
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        String pass = txtPassword.getText();
+
+    String pass = txtPassword.getText();
     String nombre = txtNombre.getText();
 
     if (query.comprobarExisteNombre(nombre)) {
         if (pass.equals(query.getPassword(nombre))) {
             JOptionPane.showMessageDialog(null, "Iniciado sesión con éxito");
-            
-            // Cierra la ventana de login y abre Mi Perfil con el nombre del usuario
+            String idJugador = query.obtenerIdJugador(nombre);
+            lista_de_partidas lista = new lista_de_partidas(nombre, idJugador);
+            lista.setVisible(true);
             this.dispose();
-            new Miperfil(nombre).setVisible(true); // Aquí pasas el nombre al JFrame
         } else {
             JOptionPane.showMessageDialog(null, "Contraseña Incorrecta");
         }
@@ -159,8 +166,11 @@ public class login extends javax.swing.JFrame {
 
     txtPassword.setText("");
     txtNombre.setText("");
-
     }//GEN-LAST:event_btnLoginActionPerformed
+
+    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreActionPerformed
 
     /**
      * @param args the command line arguments

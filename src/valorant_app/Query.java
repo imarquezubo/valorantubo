@@ -176,6 +176,9 @@ public class Query extends Conexion {
     }
     return userData; // Retorna el array con los datos
     }
+    public String[] getHistorial(String historial){
+        
+    }
     private void cerrarConexion() {
         try {
         if (resultado != null) resultado.close();

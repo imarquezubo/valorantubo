@@ -2,6 +2,7 @@
 package valorant_app;
 
 import java.awt.Color;
+import java.awt.Toolkit;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,6 +20,8 @@ public class login extends javax.swing.JFrame {
     public login() {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.setTitle("Valorant Tracker");
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/imagenes/valoLogo.png")));
     }
 
     /**

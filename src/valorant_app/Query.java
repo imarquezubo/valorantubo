@@ -203,7 +203,7 @@ public class Query extends Conexion {
     conectar();
     try {
         String query = "SELECT " +
-                       "jugador.id_jugador, " +
+                       "partida.id_partida, " +
                        "mapa.nombre AS mapa, " +
                        "tipo_partida.descripcion AS modo, " +
                        "agente.nombre AS agente, " +
@@ -226,7 +226,7 @@ public class Query extends Conexion {
         resultado = ps.executeQuery();
 
         while (resultado.next()) {
-            String id = resultado.getString("id_jugador");
+            String id = resultado.getString("id_partida");
             String mapa = resultado.getString("mapa");
             String modo = resultado.getString("modo");
             String agente = resultado.getString("agente");

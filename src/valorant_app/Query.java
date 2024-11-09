@@ -261,22 +261,23 @@ public void obtenerDetallesPartida(String idPartida, JTable tablaDetalles) {
     conectar();
     try {
         String query = "SELECT j.nombre AS nombre_jugador, " +
-                       "e.rol_equipo AS equipo, " +
-                       "a.nombre AS agente, " +
-                       "estadistica.asesinatos, " +
-                       "estadistica.muertes, " +  
-                       "estadistica.asistencias, " +
-                       "estadistica.acs, " +
-                       "estadistica.Puntaje_Eco, " +  
-                       "estadistica.primeros_asesinatos, " +
-                       "estadistica.plants, " +
-                       "estadistica.Defuse " +  
-                       "FROM partida_jugador pj " +
-                       "INNER JOIN jugador j ON pj.id_jugador = j.id_jugador " +
-                       "INNER JOIN equipo e ON pj.id_equipo = e.id_equipo " +
-                       "INNER JOIN estadistica ON pj.id_estadistica = estadistica.id_estadistica " +
-                       "INNER JOIN agente a ON estadistica.id_agente = a.id_agente " +
-                       "WHERE pj.id_partida = ?";
+               "e.rol_equipo AS equipo, " +
+               "a.nombre AS agente, " +
+               "estadistica.asesinatos, " +
+               "estadistica.muertes, " +  
+               "estadistica.asistencias, " +
+               "estadistica.acs, " +
+               "estadistica.Puntaje_Eco, " +  
+               "estadistica.primeros_asesinatos, " +
+               "estadistica.plants, " +
+               "estadistica.Defuse " +  
+               "FROM partida_jugador pj " +
+               "INNER JOIN jugador j ON pj.id_jugador = j.id_jugador " +
+               "INNER JOIN equipo e ON pj.id_equipo = e.id_equipo " +
+               "INNER JOIN estadistica ON pj.id_estadistica = estadistica.id_estadistica " +
+               "INNER JOIN agente a ON estadistica.id_agente = a.id_agente " +
+               "WHERE pj.id_partida = ? " +
+               "ORDER BY e.rol_equipo";
 
         PreparedStatement ps = conexion.prepareStatement(query);
         ps.setString(1, idPartida);

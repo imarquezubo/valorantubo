@@ -79,6 +79,7 @@ public class panelPartida extends javax.swing.JPanel {
         lblRondasGanadas = new javax.swing.JLabel();
         btnMas = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createEtchedBorder());
         setMaximumSize(new java.awt.Dimension(830, 150));
         setPreferredSize(new java.awt.Dimension(830, 150));
@@ -90,61 +91,64 @@ public class panelPartida extends javax.swing.JPanel {
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel1.setText("Id_mapa:");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(39, 26, 112, 29));
+        jLabel1.setText("Id_partida:");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 112, 29));
 
         Nombre_Mapa.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         Nombre_Mapa.setText("Nombre_mapa:");
-        add(Nombre_Mapa, new org.netbeans.lib.awtextra.AbsoluteConstraints(39, 80, 112, 29));
+        add(Nombre_Mapa, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 112, 29));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setText("Modo de Juego:");
-        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(276, 26, -1, 29));
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 50, -1, 29));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel4.setText("Agente Jugado:");
-        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(276, 80, 99, 29));
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 100, 99, 29));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel5.setText("Rol Equipo:");
-        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(506, 80, 80, 29));
+        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 100, 80, 29));
 
         Fecha.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         Fecha.setText("Fecha:");
-        add(Fecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 30, 80, 29));
+        add(Fecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 80, 29));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel6.setText("Rondas Gandas:");
-        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 70, 104, 20));
+        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 50, 104, 30));
 
         lblMapaId.setText("[n/n]");
-        add(lblMapaId, new org.netbeans.lib.awtextra.AbsoluteConstraints(157, 27, 107, 29));
+        add(lblMapaId, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, 107, 29));
 
         lblNombreMapa.setText("[n/n]");
-        add(lblNombreMapa, new org.netbeans.lib.awtextra.AbsoluteConstraints(157, 81, 107, 29));
+        add(lblNombreMapa, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 100, 107, 29));
 
         lblModoJuego.setText("[n/n]");
-        add(lblModoJuego, new org.netbeans.lib.awtextra.AbsoluteConstraints(387, 27, 107, 29));
+        add(lblModoJuego, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 50, 107, 29));
 
         lblAgenteJugado.setText("[n/n]");
-        add(lblAgenteJugado, new org.netbeans.lib.awtextra.AbsoluteConstraints(387, 81, 107, 29));
+        add(lblAgenteJugado, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 100, 107, 29));
 
         lblFecha.setText("[n/n]");
-        add(lblFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 30, 140, 29));
+        add(lblFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 10, 140, 29));
 
         lblRolEquipo.setText("[n/n]");
-        add(lblRolEquipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(592, 81, 77, 29));
+        add(lblRolEquipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 100, 77, 29));
 
         lblRondasGanadas.setText("[n/n]");
-        add(lblRondasGanadas, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 70, 30, 20));
+        add(lblRondasGanadas, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 50, 30, 30));
 
-        btnMas.setText("Leer más");
+        btnMas.setBackground(new java.awt.Color(255, 51, 51));
+        btnMas.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnMas.setForeground(new java.awt.Color(255, 255, 255));
+        btnMas.setText("Ver más");
         btnMas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMasActionPerformed(evt);
             }
         });
-        add(btnMas, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 98, 110, -1));
+        add(btnMas, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 70, 140, 40));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnMasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMasActionPerformed

@@ -199,10 +199,16 @@ public class login extends javax.swing.JFrame {
 
     if (query.comprobarExisteNombre(nombre)) {
         if (pass.equals(query.getPassword(nombre))) {
+            /*
             JOptionPane.showMessageDialog(null, "Iniciado sesión con éxito");
             String idJugador = query.obtenerIdJugador(nombre);
             lista_de_partidas lista = new lista_de_partidas(nombre, idJugador);
             lista.setVisible(true);
+            */
+            
+            listaPartidas listapartidas = new listaPartidas(nombre, query.obtenerIdJugador(nombre));
+            listapartidas.llenarLista();
+            listapartidas.setVisible(true);
             this.dispose();
         } else {
             JOptionPane.showMessageDialog(null, "Contraseña Incorrecta");

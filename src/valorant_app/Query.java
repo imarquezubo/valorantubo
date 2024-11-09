@@ -29,6 +29,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
+import java.sql.ResultSet;
 
 /**
  *
@@ -196,60 +197,60 @@ public class Query extends Conexion {
     return userData; // Retorna el array con los datos
     }
     public void llenarHistorial(JTable historial, String idJugador) {
-    DefaultTableModel model = new DefaultTableModel();
-    model.setColumnIdentifiers(new String[]{"ID", "Mapa", "Modo", "Agente", "Fecha", "Rol del Equipo", "Rondas Ganadas", "Resultado", "Acción"});
-    historial.setModel(model);
+        DefaultTableModel model = new DefaultTableModel();
+        model.setColumnIdentifiers(new String[]{"ID", "Mapa", "Modo", "Agente", "Fecha", "Rol del Equipo", "Rondas Ganadas", "Resultado", "Acción"});
+        historial.setModel(model);
 
-    conectar();
-    try {
-        String query = "SELECT " +
-                       "partida.id_partida, " +
-                       "mapa.nombre AS mapa, " +
-                       "tipo_partida.descripcion AS modo, " +
-                       "agente.nombre AS agente, " +
-                       "partida.fecha, " +
-                       "equipo.rol_equipo, " +
-                       "equipo.rondas_ganadas " +
-                       "FROM " +
-                       "partida_jugador " +
-                       "INNER JOIN jugador ON jugador.id_jugador = partida_jugador.id_jugador " +
-                       "INNER JOIN partida ON partida.id_partida = partida_jugador.id_partida " +
-                       "INNER JOIN mapa ON mapa.id_mapa = partida.id_mapa " +
-                       "INNER JOIN tipo_partida ON tipo_partida.id_tipo_partida = partida.id_tipo_partida " +
-                       "INNER JOIN estadistica ON estadistica.id_estadistica = partida_jugador.id_estadistica " +
-                       "INNER JOIN agente ON agente.id_agente = estadistica.id_agente " +
-                       "INNER JOIN equipo ON equipo.id_equipo = partida_jugador.id_equipo " +
-                       "WHERE jugador.id_jugador = ?";
+        conectar();
+        try {
+            String query = "SELECT " +
+                           "partida.id_partida, " +
+                           "mapa.nombre AS mapa, " +
+                           "tipo_partida.descripcion AS modo, " +
+                           "agente.nombre AS agente, " +
+                           "partida.fecha, " +
+                           "equipo.rol_equipo, " +
+                           "equipo.rondas_ganadas " +
+                           "FROM " +
+                           "partida_jugador " +
+                           "INNER JOIN jugador ON jugador.id_jugador = partida_jugador.id_jugador " +
+                           "INNER JOIN partida ON partida.id_partida = partida_jugador.id_partida " +
+                           "INNER JOIN mapa ON mapa.id_mapa = partida.id_mapa " +
+                           "INNER JOIN tipo_partida ON tipo_partida.id_tipo_partida = partida.id_tipo_partida " +
+                           "INNER JOIN estadistica ON estadistica.id_estadistica = partida_jugador.id_estadistica " +
+                           "INNER JOIN agente ON agente.id_agente = estadistica.id_agente " +
+                           "INNER JOIN equipo ON equipo.id_equipo = partida_jugador.id_equipo " +
+                           "WHERE jugador.id_jugador = ?";
 
-        PreparedStatement ps = conexion.prepareStatement(query);
-        ps.setString(1, idJugador);
-        resultado = ps.executeQuery();
+            PreparedStatement ps = conexion.prepareStatement(query);
+            ps.setString(1, idJugador);
+            resultado = ps.executeQuery();
 
-        while (resultado.next()) {
-            String id = resultado.getString("id_partida");
-            String mapa = resultado.getString("mapa");
-            String modo = resultado.getString("modo");
-            String agente = resultado.getString("agente");
-            String fecha = resultado.getString("fecha");
-            String rolEquipo = resultado.getString("rol_equipo");
-            int rondasGanadas = resultado.getInt("rondas_ganadas");
-            String resultadoPartida = (rolEquipo.equals("Atacante") && rondasGanadas >= 13) || 
-                                      (rolEquipo.equals("Defensor") && rondasGanadas >= 13) ? "Victoria" : "Derrota";
+            while (resultado.next()) {
+                String id = resultado.getString("id_partida");
+                String mapa = resultado.getString("mapa");
+                String modo = resultado.getString("modo");
+                String agente = resultado.getString("agente");
+                String fecha = resultado.getString("fecha");
+                String rolEquipo = resultado.getString("rol_equipo");
+                int rondasGanadas = resultado.getInt("rondas_ganadas");
+                String resultadoPartida = (rolEquipo.equals("Atacante") && rondasGanadas >= 13) || 
+                                          (rolEquipo.equals("Defensor") && rondasGanadas >= 13) ? "Victoria" : "Derrota";
 
-            // Agrega una fila con un botón
-            model.addRow(new Object[]{id, mapa, modo, agente, fecha, rolEquipo, rondasGanadas, resultadoPartida, "Ver Detalles"});
+                // Agrega una fila con un botón
+                model.addRow(new Object[]{id, mapa, modo, agente, fecha, rolEquipo, rondasGanadas, resultadoPartida, "Ver Detalles"});
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Query.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            cerrarConexion();
         }
-    } catch (SQLException ex) {
-        Logger.getLogger(Query.class.getName()).log(Level.SEVERE, null, ex);
-    } finally {
-        cerrarConexion();
-    }
-    
 
-    // Agrega un TableCellRenderer y TableCellEditor para la columna de botones
-    historial.getColumn("Acción").setCellRenderer(new ButtonRenderer());
-    historial.getColumn("Acción").setCellEditor(new ButtonEditor(new JCheckBox(), historial));
-}
+
+        // Agrega un TableCellRenderer y TableCellEditor para la columna de botones
+        historial.getColumn("Acción").setCellRenderer(new ButtonRenderer());
+        historial.getColumn("Acción").setCellEditor(new ButtonEditor(new JCheckBox(), historial));
+    }
 public void obtenerDetallesPartida(String idPartida, JTable tablaDetalles) {
     DefaultTableModel model = new DefaultTableModel();
     model.setColumnIdentifiers(new String[]{"Nombre Jugador", "Equipo", "Agente", "Asesinatos", "Muertes", "Asistencias", "ACS", "Puntaje Eco", "Primeros Asesinatos", "Plants", "Defusals"});
@@ -464,6 +465,48 @@ button.addActionListener(new ActionListener() {
         return idJugador;
     }
     
+    
+    public int numeroDePartidasDeUnUsuario(String nombreUsuario) {
+        int numeroPartidas=0;
+        conectar();
+        try {
+            resultado = instruccion.executeQuery("SELECT COUNT(*) FROM jugador " +
+                    " INNER JOIN partida_jugador ON partida_jugador.id_jugador = jugador.id_jugador " +
+                    " INNER JOIN partida ON partida.id_partida = partida_jugador.id_partida " +
+                    " WHERE jugador.nombre = '"+nombreUsuario+"';");
+            resultado.next();
+            numeroPartidas = Integer.parseInt(resultado.getString(1));
+        } catch (SQLException ex) {
+            Logger.getLogger(Query.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        return numeroPartidas;
+    }
+    
+    public ResultSet datosPartida(String nombreUsuario, int index){
+        conectar();
+        try {
+            resultado = instruccion.executeQuery("SELECT mapa.id_mapa, mapa.nombre, tipo_partida.descripcion, agente.nombre, partida.fecha, equipo.rol_equipo, equipo.rondas_ganadas  FROM jugador " +
+                " INNER JOIN partida_jugador ON partida_jugador.id_jugador = jugador.id_jugador " +
+                " INNER JOIN partida ON partida.id_partida = partida_jugador.id_partida " +
+                " INNER JOIN mapa ON mapa.id_mapa = partida.id_mapa " +
+                " INNER JOIN tipo_partida ON tipo_partida.id_tipo_partida = partida.id_tipo_partida " +
+                " INNER JOIN estadistica ON estadistica.id_estadistica = partida_jugador.id_estadistica " +
+                " INNER JOIN agente ON agente.id_agente = estadistica.id_agente " +
+                " INNER JOIN equipo ON equipo.id_equipo = partida_jugador.id_equipo " +
+                " WHERE jugador.nombre = '"+nombreUsuario+"';");
+            int x=1;
+            while(x<=index){
+                resultado.next();
+                x++;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Query.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return resultado;
+    }
 }
     
       

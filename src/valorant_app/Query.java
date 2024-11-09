@@ -5,7 +5,9 @@
 package valorant_app;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -16,6 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import java.sql.PreparedStatement;
+import javax.swing.BorderFactory;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -23,6 +26,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
@@ -251,19 +255,22 @@ public void obtenerDetallesPartida(String idPartida, JTable tablaDetalles) {
     model.setColumnIdentifiers(new String[]{"Nombre Jugador", "Equipo", "Agente", "Asesinatos", "Muertes", "Asistencias", "ACS", "Puntaje Eco", "Primeros Asesinatos", "Plants", "Defusals"});
     tablaDetalles.setModel(model);
 
+    // Aplicar el renderer personalizado a cada columna
+    tablaDetalles.setDefaultRenderer(Object.class, new EquipoCellRenderer());
+
     conectar();
     try {
         String query = "SELECT j.nombre AS nombre_jugador, " +
                        "e.rol_equipo AS equipo, " +
                        "a.nombre AS agente, " +
                        "estadistica.asesinatos, " +
-                       "estadistica.muertes, " +  // Asegúrate de que este nombre sea correcto
+                       "estadistica.muertes, " +  
                        "estadistica.asistencias, " +
                        "estadistica.acs, " +
-                       "estadistica.Puntaje_Eco, " +  // Verifica que sea 'Puntaje_Eco'
+                       "estadistica.Puntaje_Eco, " +  
                        "estadistica.primeros_asesinatos, " +
                        "estadistica.plants, " +
-                       "estadistica.Defuse " +  // Cambia 'defuses' por 'Defuse'
+                       "estadistica.Defuse " +  
                        "FROM partida_jugador pj " +
                        "INNER JOIN jugador j ON pj.id_jugador = j.id_jugador " +
                        "INNER JOIN equipo e ON pj.id_equipo = e.id_equipo " +
@@ -272,7 +279,7 @@ public void obtenerDetallesPartida(String idPartida, JTable tablaDetalles) {
                        "WHERE pj.id_partida = ?";
 
         PreparedStatement ps = conexion.prepareStatement(query);
-        ps.setString(1, idPartida); // Asegúrate de que aquí estés usando el ID correcto
+        ps.setString(1, idPartida);
         resultado = ps.executeQuery();
 
         while (resultado.next()) {
@@ -296,6 +303,32 @@ public void obtenerDetallesPartida(String idPartida, JTable tablaDetalles) {
         cerrarConexion();
     }
 }
+
+// Define la clase EquipoCellRenderer fuera de obtenerDetallesPartida
+class EquipoCellRenderer extends DefaultTableCellRenderer {
+    @Override
+    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+        Component cell = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+        
+        // Obtener el valor de la columna 'Equipo' para la fila actual
+        String equipo = table.getValueAt(row, 1).toString();
+        
+        // Cambiar color de fondo según el rol del equipo
+        if (equipo.equalsIgnoreCase("Atacante")) {
+            cell.setBackground(new Color(173, 216, 230)); // Celeste claro para atacantes
+        } else if (equipo.equalsIgnoreCase("Defensor")) {
+            cell.setBackground(new Color(255, 182, 193)); // Rojo claro para defensores
+        } else {
+            cell.setBackground(Color.WHITE); // Color blanco si el equipo no coincide con Atacante o Defensor
+        }
+
+        // Ajustar el color del texto para que sea visible
+        cell.setForeground(Color.BLACK);
+        
+        return cell;
+    }
+}
+
     class ButtonRenderer extends JButton implements TableCellRenderer {
     public ButtonRenderer() {
         setOpaque(true);
@@ -319,43 +352,57 @@ class ButtonEditor extends DefaultCellEditor {
         button = new JButton();
         button.setOpaque(true);
 
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int filaSeleccionada = table.getSelectedRow();
-                if (filaSeleccionada != -1) {
-                    // Asegúrate de que la columna 0 tenga el ID de la partida
-                    String idPartida = table.getValueAt(filaSeleccionada, 0).toString();
-                    System.out.println("ID de partida seleccionado: " + idPartida); // Agregar depuración
+button.addActionListener(new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        int filaSeleccionada = table.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            String idPartida = table.getValueAt(filaSeleccionada, 0).toString();
+            System.out.println("ID de partida seleccionado: " + idPartida);
 
-                    Query query = new Query();
-                    JTable tablaDetalles = new JTable();
-                    query.obtenerDetallesPartida(idPartida, tablaDetalles);
+            Query query = new Query();
+            JTable tablaDetalles = new JTable();
+            tablaDetalles.setOpaque(true);
+            ((DefaultTableCellRenderer) tablaDetalles.getDefaultRenderer(Object.class)).setOpaque(true);
 
-                    JFrame detallesFrame = new JFrame("Detalles de la Partida");
-                    detallesFrame.setSize(800, 240);
-                    detallesFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            query.obtenerDetallesPartida(idPartida, tablaDetalles);
 
-                    JPanel panel = new JPanel() {
-                        private Image backgroundImage = Toolkit.getDefaultToolkit().getImage("imagenes/valooo3.png");
+            JFrame detallesFrame = new JFrame("Detalles de la Partida");
+            detallesFrame.setSize(1000, 600);
+            detallesFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-                        @Override
-                        protected void paintComponent(Graphics g) {
-                            super.paintComponent(g);
-                            g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
-                        }
-                    };
-                    panel.setLayout(new BorderLayout());
-                    
-                    JScrollPane scrollPane = new JScrollPane(tablaDetalles);
-                    panel.add(scrollPane, BorderLayout.CENTER);
+            JPanel panel = new JPanel() {
+                private Image backgroundImage = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/imagenes/valoranttracker.jpg"));
 
-                    detallesFrame.add(panel);
-                    detallesFrame.setVisible(true);
+                @Override
+                protected void paintComponent(Graphics g) {
+                    super.paintComponent(g);
+                    g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
                 }
-                fireEditingStopped();
-            }
-        });
+            };
+            panel.setLayout(null);
+
+            // Ajustar tamaño y posición del JTable para centrarlo
+            JScrollPane scrollPane = new JScrollPane(tablaDetalles);
+            int scrollPaneWidth = 800;
+            int scrollPaneHeight = 190;
+            int panelWidth = detallesFrame.getWidth();
+            int panelHeight = detallesFrame.getHeight();
+
+            // Calcular la posición para centrar el JTable en el JFrame
+            int xPosition = (panelWidth - scrollPaneWidth) / 2 - 10; // Ajuste fino de -10
+            int yPosition = (panelHeight - scrollPaneHeight) / 2 - 30; // Ajuste fino de -30
+
+            scrollPane.setBounds(xPosition, yPosition, scrollPaneWidth, scrollPaneHeight);
+
+            panel.add(scrollPane);
+            detallesFrame.add(panel);
+            detallesFrame.setVisible(true);
+        }
+        fireEditingStopped();
+    }
+});
+
     }
 
     public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {

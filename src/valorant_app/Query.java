@@ -30,6 +30,9 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import java.sql.ResultSet;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 /**
  *
@@ -59,6 +62,42 @@ public class Query extends Conexion {
         }
         return comprobacion;
     }
+    
+ public boolean cambiarContrasena(String correo, String contrasenaActual, String nuevaContrasena) {
+    boolean exito = false;
+    
+    try {
+        // Establecer la conexión
+        Connection con = getConnection();
+
+        // Verificar que la contraseña actual sea correcta
+        String verificarQuery = "SELECT * FROM jugador WHERE correo = ? AND contrasena = ?";  // Cambié 'jugadores' por 'jugador'
+        PreparedStatement stmtVerificar = con.prepareStatement(verificarQuery);
+        stmtVerificar.setString(1, correo);
+        stmtVerificar.setString(2, contrasenaActual);
+        
+        ResultSet rs = stmtVerificar.executeQuery();
+
+        if (rs.next()) {
+            // Contraseña actual es correcta, ahora actualizar
+            String actualizarQuery = "UPDATE jugador SET contrasena = ? WHERE correo = ?";  // Cambié 'jugadores' por 'jugador'
+            PreparedStatement stmtActualizar = con.prepareStatement(actualizarQuery);
+            stmtActualizar.setString(1, nuevaContrasena);
+            stmtActualizar.setString(2, correo);
+            int filasActualizadas = stmtActualizar.executeUpdate();
+
+            if (filasActualizadas > 0) {
+                exito = true;
+            }
+        }
+        con.close();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    
+    return exito;
+}
+
     
     Boolean comprobarExisteCorreo(String correo){
         Boolean comprobacion = false;

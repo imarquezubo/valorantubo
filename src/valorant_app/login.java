@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Toolkit;
 import javax.swing.JOptionPane;
 
+
 /**
  *
  * @author isaia
@@ -124,18 +125,18 @@ public class login extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jLabel3)
                                 .addComponent(jLabel2)
-                                .addComponent(lblCrearUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(txtPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
-                                .addComponent(txtNombre))))
+                                .addComponent(txtNombre))
+                            .addComponent(lblCrearUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(102, 102, 102)
                         .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(115, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(17, Short.MAX_VALUE)
+                .addContainerGap(11, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
@@ -147,9 +148,9 @@ public class login extends javax.swing.JFrame {
                 .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblCrearUsuario)
-                .addGap(40, 40, 40))
+                .addGap(52, 52, 52))
         );
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 330, 280));
@@ -236,7 +237,11 @@ public class login extends javax.swing.JFrame {
         btnLogin.setBackground(new Color(179, 61, 64));
         btnLogin.setForeground(Color.WHITE);
     }//GEN-LAST:event_btnLoginMouseExited
-
+private void abrirCambioContrasena() {
+    // Crear la instancia del JFrame CambiarContrasenaFrame y mostrarlo
+    CambiarContrasenaFramee cambiarContrasenaFrame = new CambiarContrasenaFramee();
+    cambiarContrasenaFrame.setVisible(true);
+}
     /**
      * @param args the command line arguments
      */

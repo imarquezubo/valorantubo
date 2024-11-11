@@ -292,7 +292,7 @@ public class Query extends Conexion {
     }
 public void obtenerDetallesPartida(String idPartida, JTable tablaDetalles) {
     DefaultTableModel model = new DefaultTableModel();
-    model.setColumnIdentifiers(new String[]{"Nombre Jugador", "Equipo", "Agente", "Asesinatos", "Muertes", "Asistencias", "ACS", "Puntaje Eco", "Primeros Asesinatos", "Plants", "Defusals"});
+    model.setColumnIdentifiers(new String[]{"Nombre Jugador", "Equipo", "Agente", "Asesinatos", "Muertes", "Asistencias", "K/D", "ACS", "Puntaje Eco", "Primeros Asesinatos", "Plants", "Defusals"});
     tablaDetalles.setModel(model);
 
     // Aplicar el renderer personalizado a cada columna
@@ -301,23 +301,23 @@ public void obtenerDetallesPartida(String idPartida, JTable tablaDetalles) {
     conectar();
     try {
         String query = "SELECT j.nombre AS nombre_jugador, " +
-               "e.rol_equipo AS equipo, " +
-               "a.nombre AS agente, " +
-               "estadistica.asesinatos, " +
-               "estadistica.muertes, " +  
-               "estadistica.asistencias, " +
-               "estadistica.acs, " +
-               "estadistica.Puntaje_Eco, " +  
-               "estadistica.primeros_asesinatos, " +
-               "estadistica.plants, " +
-               "estadistica.Defuse " +  
-               "FROM partida_jugador pj " +
-               "INNER JOIN jugador j ON pj.id_jugador = j.id_jugador " +
-               "INNER JOIN equipo e ON pj.id_equipo = e.id_equipo " +
-               "INNER JOIN estadistica ON pj.id_estadistica = estadistica.id_estadistica " +
-               "INNER JOIN agente a ON estadistica.id_agente = a.id_agente " +
-               "WHERE pj.id_partida = ? " +
-               "ORDER BY e.rol_equipo";
+                       "e.rol_equipo AS equipo, " +
+                       "a.nombre AS agente, " +
+                       "estadistica.asesinatos, " +
+                       "estadistica.muertes, " +  
+                       "estadistica.asistencias, " +
+                       "estadistica.acs, " +
+                       "estadistica.Puntaje_Eco, " +  
+                       "estadistica.primeros_asesinatos, " +
+                       "estadistica.plants, " +
+                       "estadistica.Defuse " +  
+                       "FROM partida_jugador pj " +
+                       "INNER JOIN jugador j ON pj.id_jugador = j.id_jugador " +
+                       "INNER JOIN equipo e ON pj.id_equipo = e.id_equipo " +
+                       "INNER JOIN estadistica ON pj.id_estadistica = estadistica.id_estadistica " +
+                       "INNER JOIN agente a ON estadistica.id_agente = a.id_agente " +
+                       "WHERE pj.id_partida = ? " +
+                       "ORDER BY e.rol_equipo";
 
         PreparedStatement ps = conexion.prepareStatement(query);
         ps.setString(1, idPartida);
@@ -330,13 +330,15 @@ public void obtenerDetallesPartida(String idPartida, JTable tablaDetalles) {
             int asesinatos = resultado.getInt("asesinatos");
             int muertes = resultado.getInt("muertes");
             int asistencias = resultado.getInt("asistencias");
+            double kdRatio = muertes != 0 ? (double) asesinatos / muertes : 0;  // Manejo de división por cero
+            kdRatio = Math.round(kdRatio * 10) / 10.0;  // Redondeo a un decimal
             int acs = resultado.getInt("acs");
             int puntajeEco = resultado.getInt("Puntaje_Eco");
             int primerosAsesinatos = resultado.getInt("primeros_asesinatos");
             int plants = resultado.getInt("plants");
             int defuses = resultado.getInt("Defuse");
 
-            model.addRow(new Object[]{nombreJugador, equipo, agente, asesinatos, muertes, asistencias, acs, puntajeEco, primerosAsesinatos, plants, defuses});
+            model.addRow(new Object[]{nombreJugador, equipo, agente, asesinatos, muertes, asistencias, kdRatio, acs, puntajeEco, primerosAsesinatos, plants, defuses});
         }
     } catch (SQLException ex) {
         Logger.getLogger(Query.class.getName()).log(Level.SEVERE, null, ex);
@@ -344,6 +346,8 @@ public void obtenerDetallesPartida(String idPartida, JTable tablaDetalles) {
         cerrarConexion();
     }
 }
+
+
 
 // Define la clase EquipoCellRenderer fuera de obtenerDetallesPartida
 class EquipoCellRenderer extends DefaultTableCellRenderer {

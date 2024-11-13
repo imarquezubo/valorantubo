@@ -101,21 +101,17 @@ public class PerfilJugador extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        agentes = new javax.swing.JScrollPane();
-        agentesPanel = new javax.swing.JPanel();
         roles = new javax.swing.JScrollPane();
         rolesPanel = new javax.swing.JPanel();
         mapas = new javax.swing.JScrollPane();
         mapasPanel = new javax.swing.JPanel();
+        agentes = new javax.swing.JScrollPane();
+        agentesPanel = new javax.swing.JPanel();
         lblNombre = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        historialbt = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        agentesPanel.setLayout(new javax.swing.BoxLayout(agentesPanel, javax.swing.BoxLayout.PAGE_AXIS));
-        agentes.setViewportView(agentesPanel);
-
-        jTabbedPane1.addTab("Agentes", agentes);
 
         rolesPanel.setLayout(new javax.swing.BoxLayout(rolesPanel, javax.swing.BoxLayout.PAGE_AXIS));
         roles.setViewportView(rolesPanel);
@@ -127,6 +123,11 @@ public class PerfilJugador extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Mapas", mapas);
 
+        agentesPanel.setLayout(new javax.swing.BoxLayout(agentesPanel, javax.swing.BoxLayout.PAGE_AXIS));
+        agentes.setViewportView(agentesPanel);
+
+        jTabbedPane1.addTab("Agentes", agentes);
+
         lblNombre.setFont(new java.awt.Font("Segoe UI", 2, 24)); // NOI18N
         lblNombre.setForeground(new java.awt.Color(255, 255, 255));
         lblNombre.setText("[name]");
@@ -135,19 +136,31 @@ public class PerfilJugador extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Bienvenido:");
 
+        historialbt.setText("Historial");
+        historialbt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                historialbtActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(22, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblNombre))
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1078, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblNombre))
+                            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1078, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(historialbt)
+                        .addGap(310, 310, 310))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -156,7 +169,9 @@ public class PerfilJugador extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(lblNombre))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 188, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 138, Short.MAX_VALUE)
+                .addComponent(historialbt)
+                .addGap(27, 27, 27)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -174,6 +189,14 @@ public class PerfilJugador extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void historialbtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_historialbtActionPerformed
+        // TODO add your handling code here:
+        listaPartidas listapartidas = new listaPartidas(nombreUsuario, query.obtenerIdJugador(nombreUsuario));
+            listapartidas.llenarLista();
+            listapartidas.setVisible(true);
+            this.dispose();
+    }//GEN-LAST:event_historialbtActionPerformed
 
     
     /**
@@ -214,6 +237,7 @@ public class PerfilJugador extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane agentes;
     private javax.swing.JPanel agentesPanel;
+    private javax.swing.JToggleButton historialbt;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTabbedPane jTabbedPane1;

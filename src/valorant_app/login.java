@@ -206,11 +206,12 @@ public class login extends javax.swing.JFrame {
             lista_de_partidas lista = new lista_de_partidas(nombre, idJugador);
             lista.setVisible(true);
             */
-            
+            /*
             listaPartidas listapartidas = new listaPartidas(nombre, query.obtenerIdJugador(nombre));
             listapartidas.llenarLista();
             listapartidas.setVisible(true);
             this.dispose();
+            */
             PerfilJugador perfiljugador = new PerfilJugador(nombre, query.obtenerIdJugador(nombre));
             perfiljugador.llenarAgentes();
             perfiljugador.llenarRoles();

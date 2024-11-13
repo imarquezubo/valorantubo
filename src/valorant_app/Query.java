@@ -526,6 +526,29 @@ button.addActionListener(new ActionListener() {
         
         return numeroPartidas;
     }
+    public int cantidadDeAgentesUsadosPorUsuario(String nombreUsuario) {
+    int cantidadAgentes = 0;
+    conectar();
+    try {
+        resultado = instruccion.executeQuery(
+            "SELECT COUNT(DISTINCT agente.id_agente) " +
+            "FROM jugador " +
+            "INNER JOIN partida_jugador ON partida_jugador.id_jugador = jugador.id_jugador " +
+            "INNER JOIN estadistica ON partida_jugador.id_estadistica = estadistica.id_estadistica " + // Se agrega la tabla estadistica
+            "INNER JOIN agente ON estadistica.id_agente = agente.id_agente " + // Se usa la tabla estadistica para obtener el agente
+            "WHERE jugador.nombre = '" + nombreUsuario + "';"
+        );
+        resultado.next();
+        cantidadAgentes = Integer.parseInt(resultado.getString(1));
+    } catch (SQLException ex) {
+        Logger.getLogger(Query.class.getName()).log(Level.SEVERE, null, ex);
+    }
+
+    return cantidadAgentes;
+}
+    
+    
+    
     
     public ResultSet datosPartida(String nombreUsuario, int index){
         conectar();
@@ -550,6 +573,42 @@ button.addActionListener(new ActionListener() {
         
         return resultado;
     }
+   public ResultSet agentesEst(String nombreUsuario, int index) {
+    conectar();
+    try {
+        resultado = instruccion.executeQuery(
+            "SELECT " +
+                "agente.nombre AS Agente, " +
+                "COUNT(partida_jugador.id_partida_jugador) AS Partidas, " +
+                "SUM(CASE WHEN equipo.rondas_ganadas = 13 THEN 1 ELSE 0 END) AS Victorias, " +
+                "SUM(CASE WHEN equipo.rondas_ganadas < 13 THEN 1 ELSE 0 END) AS Derrotas, " +
+                "ROUND(100 * SUM(CASE WHEN equipo.rondas_ganadas = 13 THEN 1 ELSE 0 END) / COUNT(partida_jugador.id_partida_jugador), 2) AS Winrate " +
+            "FROM " +
+                "partida_jugador " +
+            "INNER JOIN jugador ON partida_jugador.id_jugador = jugador.id_jugador " +
+            "INNER JOIN estadistica ON partida_jugador.id_estadistica = estadistica.id_estadistica " +
+            "INNER JOIN agente ON estadistica.id_agente = agente.id_agente " +
+            "INNER JOIN equipo ON partida_jugador.id_equipo = equipo.id_equipo " +
+            "WHERE " +
+                "jugador.nombre = '" + nombreUsuario + "' " +
+            "GROUP BY " +
+                "agente.nombre " +
+            "ORDER BY " +
+                "Partidas DESC;"
+        );
+
+        int x = 1;
+        while (x <= index) {
+            resultado.next();
+            x++;
+        }
+    } catch (SQLException ex) {
+        Logger.getLogger(Query.class.getName()).log(Level.SEVERE, null, ex);
+    }
+
+    return resultado;
+    }
 }
+
     
       

@@ -211,6 +211,10 @@ public class login extends javax.swing.JFrame {
             listapartidas.llenarLista();
             listapartidas.setVisible(true);
             this.dispose();
+            PerfilJugador perfiljugador = new PerfilJugador(nombre, query.obtenerIdJugador(nombre));
+            perfiljugador.llenarAgentes();
+            perfiljugador.setVisible(true);
+            this.dispose();
         } else {
             JOptionPane.showMessageDialog(null, "Contraseña Incorrecta");
         }

@@ -213,6 +213,8 @@ public class login extends javax.swing.JFrame {
             this.dispose();
             PerfilJugador perfiljugador = new PerfilJugador(nombre, query.obtenerIdJugador(nombre));
             perfiljugador.llenarAgentes();
+            perfiljugador.llenarRoles();
+            perfiljugador.llenarMapas();
             perfiljugador.setVisible(true);
             this.dispose();
         } else {

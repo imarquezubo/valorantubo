@@ -51,6 +51,44 @@ public class PerfilJugador extends javax.swing.JFrame {
             
         }
     }
+    
+    public void llenarRoles() {
+        for(int x=1 ; x<=query.cantidadDeRolesUsadosPorUsuario(nombreUsuario) ; x++){
+            ResultSet rs;
+            rs = query.rolesEst(nombreUsuario, x);
+            try {
+                panelRol panelrol = new panelRol ();
+                panelrol.llenarDatos(rs.getString(1),Integer.parseInt(rs.getString(2)),Integer.parseInt(rs.getString(3)),Integer.parseInt(rs.getString(4)),Float.parseFloat(rs.getString(5)), x);
+                panelrol.llenarPanel();
+                rolesPanel.add(panelrol);
+                
+                
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(listaPartidas.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        }
+    }
+    
+    public void llenarMapas() {
+        for(int x=1 ; x<=query.cantidadDeMapasJugadosPorUsuario(nombreUsuario) ; x++){
+            ResultSet rs;
+            rs = query.mapasEst(nombreUsuario, x);
+            try {
+                panelMapa panelmapa = new panelMapa ();
+                panelmapa.llenarDatos(rs.getString(1),Integer.parseInt(rs.getString(2)),Integer.parseInt(rs.getString(3)),Integer.parseInt(rs.getString(4)),Float.parseFloat(rs.getString(5)), x);
+                panelmapa.llenarPanel();
+                mapasPanel.add(panelmapa);
+                
+                
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(listaPartidas.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.

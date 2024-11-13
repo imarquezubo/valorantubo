@@ -608,6 +608,124 @@ button.addActionListener(new ActionListener() {
 
     return resultado;
     }
+   public ResultSet rolesEst(String nombreUsuario, int index) {
+    conectar();
+    try {
+        resultado = instruccion.executeQuery(
+            "SELECT " +
+                "clase.nombre AS Rol, " +
+                "COUNT(partida_jugador.id_partida_jugador) AS Partidas, " +
+                "SUM(CASE WHEN equipo.rondas_ganadas = 13 THEN 1 ELSE 0 END) AS Victorias, " +
+                "SUM(CASE WHEN equipo.rondas_ganadas < 13 THEN 1 ELSE 0 END) AS Derrotas, " +
+                "ROUND(100 * SUM(CASE WHEN equipo.rondas_ganadas = 13 THEN 1 ELSE 0 END) / COUNT(partida_jugador.id_partida_jugador), 2) AS Winrate " +
+            "FROM " +
+                "partida_jugador " +
+            "INNER JOIN jugador ON partida_jugador.id_jugador = jugador.id_jugador " +
+            "INNER JOIN estadistica ON partida_jugador.id_estadistica = estadistica.id_estadistica " +
+            "INNER JOIN agente ON estadistica.id_agente = agente.id_agente " +
+            "INNER JOIN clase ON agente.id_clase = clase.id_clase " +
+            "INNER JOIN equipo ON partida_jugador.id_equipo = equipo.id_equipo " +
+            "WHERE " +
+                "jugador.nombre = '" + nombreUsuario + "' " +
+            "GROUP BY " +
+                "clase.nombre " +
+            "ORDER BY " +
+                "Partidas DESC;"
+        );
+
+        int x = 1;
+        while (x <= index) {
+            resultado.next();
+            x++;
+        }
+    } catch (SQLException ex) {
+        Logger.getLogger(Query.class.getName()).log(Level.SEVERE, null, ex);
+    }
+
+    return resultado;
+}
+   
+   public int cantidadDeRolesUsadosPorUsuario(String nombreUsuario) {
+    int cantidadRoles = 0;
+    conectar();
+    try {
+        resultado = instruccion.executeQuery(
+            "SELECT COUNT(DISTINCT clase.id_clase) " +
+            "FROM jugador " +
+            "INNER JOIN partida_jugador ON partida_jugador.id_jugador = jugador.id_jugador " +
+            "INNER JOIN estadistica ON partida_jugador.id_estadistica = estadistica.id_estadistica " +
+            "INNER JOIN agente ON estadistica.id_agente = agente.id_agente " +
+            "INNER JOIN clase ON agente.id_clase = clase.id_clase " + // Se usa la tabla clase para obtener el rol
+            "WHERE jugador.nombre = '" + nombreUsuario + "';"
+        );
+        resultado.next();
+        cantidadRoles = Integer.parseInt(resultado.getString(1));
+    } catch (SQLException ex) {
+        Logger.getLogger(Query.class.getName()).log(Level.SEVERE, null, ex);
+    }
+
+    return cantidadRoles;
+}
+   public ResultSet mapasEst(String nombreUsuario, int index) {
+    conectar();
+    try {
+        resultado = instruccion.executeQuery(
+            "SELECT " +
+                "mapa.nombre AS Mapa, " +
+                "COUNT(partida_jugador.id_partida_jugador) AS Partidas, " +
+                "SUM(CASE WHEN equipo.rondas_ganadas = 13 THEN 1 ELSE 0 END) AS Victorias, " +
+                "SUM(CASE WHEN equipo.rondas_ganadas < 13 THEN 1 ELSE 0 END) AS Derrotas, " +
+                "ROUND(100 * SUM(CASE WHEN equipo.rondas_ganadas = 13 THEN 1 ELSE 0 END) / COUNT(partida_jugador.id_partida_jugador), 2) AS Winrate " +
+            "FROM " +
+                "partida_jugador " +
+            "JOIN partida ON partida_jugador.id_partida = partida.id_partida " +
+            "JOIN mapa ON partida.id_mapa = mapa.id_mapa " +
+            "JOIN equipo ON partida_jugador.id_equipo = equipo.id_equipo " +
+            "JOIN jugador ON partida_jugador.id_jugador = jugador.id_jugador " +
+            "WHERE " +
+                "jugador.nombre = '" + nombreUsuario + "' " +
+            "GROUP BY " +
+                "mapa.nombre " +
+            "ORDER BY " +
+                "Partidas DESC;"
+        );
+
+        int x = 1;
+        while (x <= index) {
+            resultado.next();
+            x++;
+        }
+    } catch (SQLException ex) {
+        Logger.getLogger(Query.class.getName()).log(Level.SEVERE, null, ex);
+    }
+
+    return resultado;
+}
+
+   public int cantidadDeMapasJugadosPorUsuario(String nombreUsuario) {
+    int cantidadMapas = 0;
+    conectar();
+    try {
+        resultado = instruccion.executeQuery(
+            "SELECT COUNT(DISTINCT mapa.id_mapa) " +
+            "FROM jugador " +
+            "INNER JOIN partida_jugador ON partida_jugador.id_jugador = jugador.id_jugador " +
+            "INNER JOIN partida ON partida_jugador.id_partida = partida.id_partida " +
+            "INNER JOIN mapa ON partida.id_mapa = mapa.id_mapa " + // Se usa la tabla mapa para obtener los mapas
+            "WHERE jugador.nombre = '" + nombreUsuario + "';"
+        );
+        resultado.next();
+        cantidadMapas = Integer.parseInt(resultado.getString(1));
+    } catch (SQLException ex) {
+        Logger.getLogger(Query.class.getName()).log(Level.SEVERE, null, ex);
+    }
+
+    return cantidadMapas;
+}
+
+
+   
+   
 }
 
     

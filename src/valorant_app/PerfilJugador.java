@@ -4,6 +4,7 @@
  */
 package valorant_app;
 
+import java.awt.Color;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -14,6 +15,7 @@ import java.util.logging.Logger;
  * @author adolf
  */
 public class PerfilJugador extends javax.swing.JFrame {
+    //RoundedPanel RoundedPanel = new RoundedPanel(20, new Color(21,44,54));
     Query query = new Query();
     String nombreUsuario;
     String idUsuario;
@@ -31,6 +33,14 @@ public class PerfilJugador extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         lblNombre.setText(nombreUsuario);
+        lblCorreo.setText(String.valueOf(query.getCorreo(nombreUsuario)));
+        lblNivel.setText(String.valueOf(query.getNivel(nombreUsuario)));
+        lblAsistencias.setText(String.valueOf(query.getAsistenciasTotales(nombreUsuario)));
+        lblKills.setText(String.valueOf(query.getKillsTotales(nombreUsuario)));
+        lblMuertes.setText(String.valueOf(query.getMuertesTotales(nombreUsuario)));
+        lblACS.setText(String.valueOf(Math.round(query.getACSPromedio(nombreUsuario))));
+        lblWinrate.setText(String.valueOf(query.getWinrateTotal(nombreUsuario)) + "%");
+        lblRango.setText(query.getRango(nombreUsuario));
     }
     
     public void llenarAgentes() {
@@ -107,9 +117,29 @@ public class PerfilJugador extends javax.swing.JFrame {
         mapasPanel = new javax.swing.JPanel();
         agentes = new javax.swing.JScrollPane();
         agentesPanel = new javax.swing.JPanel();
+        historialbt = new javax.swing.JToggleButton();
+        seccionPerfil = new RoundedPanel(20, new Color(21,44,54));
         lblNombre = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        historialbt = new javax.swing.JToggleButton();
+        lblCorreo = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        lblNivel = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        lblKills = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        lblACS = new javax.swing.JLabel();
+        lblMuertes = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        lblAsistencias = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        lblRango = new javax.swing.JLabel();
+        lblWinrate = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
+        jPanel8 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -128,14 +158,6 @@ public class PerfilJugador extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Agentes", agentes);
 
-        lblNombre.setFont(new java.awt.Font("Segoe UI", 2, 24)); // NOI18N
-        lblNombre.setForeground(new java.awt.Color(255, 255, 255));
-        lblNombre.setText("[name]");
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Bienvenido:");
-
         historialbt.setText("Historial");
         historialbt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -143,35 +165,182 @@ public class PerfilJugador extends javax.swing.JFrame {
             }
         });
 
+        seccionPerfil.setBackground(new java.awt.Color(21, 44, 54));
+        seccionPerfil.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
+        seccionPerfil.setPreferredSize(new java.awt.Dimension(969, 160));
+        seccionPerfil.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblNombre.setBackground(new java.awt.Color(228, 228, 228));
+        lblNombre.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        lblNombre.setForeground(new java.awt.Color(228, 228, 228));
+        lblNombre.setText("[name]");
+        seccionPerfil.add(lblNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(104, 8, 270, -1));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/userProfileIcon.png"))); // NOI18N
+        seccionPerfil.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 21, -1, -1));
+
+        lblCorreo.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        lblCorreo.setForeground(new java.awt.Color(228, 228, 228));
+        lblCorreo.setText("[email]");
+        seccionPerfil.add(lblCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(104, 53, 270, -1));
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(228, 228, 228));
+        jLabel3.setText("Nivel");
+        seccionPerfil.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, -1, -1));
+
+        lblNivel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lblNivel.setForeground(new java.awt.Color(228, 228, 228));
+        lblNivel.setText("[N]");
+        seccionPerfil.add(lblNivel, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 90, -1, -1));
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(228, 228, 228));
+        jLabel5.setText("Kills");
+        seccionPerfil.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 20, 70, -1));
+
+        lblKills.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        lblKills.setForeground(new java.awt.Color(255, 255, 255));
+        lblKills.setText("[N]");
+        seccionPerfil.add(lblKills, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 40, 70, -1));
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(228, 228, 228));
+        jLabel7.setText("ACS");
+        seccionPerfil.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 90, 70, -1));
+
+        lblACS.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        lblACS.setForeground(new java.awt.Color(255, 255, 255));
+        lblACS.setText("[N]");
+        seccionPerfil.add(lblACS, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 110, 70, -1));
+
+        lblMuertes.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        lblMuertes.setForeground(new java.awt.Color(255, 255, 255));
+        lblMuertes.setText("[N]");
+        seccionPerfil.add(lblMuertes, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 40, 64, -1));
+
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(228, 228, 228));
+        jLabel10.setText("Muertes");
+        seccionPerfil.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 20, -1, -1));
+
+        jPanel4.setPreferredSize(new java.awt.Dimension(2, 40));
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 2, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 50, Short.MAX_VALUE)
+        );
+
+        seccionPerfil.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 20, -1, 50));
+
+        lblAsistencias.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        lblAsistencias.setForeground(new java.awt.Color(255, 255, 255));
+        lblAsistencias.setText("[N]");
+        seccionPerfil.add(lblAsistencias, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 110, 90, -1));
+
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(228, 228, 228));
+        jLabel12.setText("Asistencias");
+        seccionPerfil.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 90, 100, -1));
+
+        lblRango.setFont(new java.awt.Font("Segoe UI", 1, 32)); // NOI18N
+        lblRango.setForeground(new java.awt.Color(228, 228, 228));
+        lblRango.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblRango.setText("[rank]");
+        seccionPerfil.add(lblRango, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 30, 110, -1));
+
+        lblWinrate.setFont(new java.awt.Font("Segoe UI", 1, 28)); // NOI18N
+        lblWinrate.setForeground(new java.awt.Color(255, 255, 255));
+        lblWinrate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblWinrate.setText("[%]");
+        seccionPerfil.add(lblWinrate, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 90, 110, -1));
+
+        jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 28)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(228, 228, 228));
+        jLabel15.setText("Winrate");
+        seccionPerfil.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 90, 100, -1));
+
+        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel16.setText("[RankIcon]");
+        jLabel16.setPreferredSize(new java.awt.Dimension(68, 68));
+        seccionPerfil.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 20, -1, -1));
+
+        jPanel6.setPreferredSize(new java.awt.Dimension(2, 40));
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 2, Short.MAX_VALUE)
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 50, Short.MAX_VALUE)
+        );
+
+        seccionPerfil.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 90, -1, 50));
+
+        jPanel7.setPreferredSize(new java.awt.Dimension(2, 40));
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 2, Short.MAX_VALUE)
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 50, Short.MAX_VALUE)
+        );
+
+        seccionPerfil.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 90, -1, 50));
+
+        jPanel8.setPreferredSize(new java.awt.Dimension(2, 40));
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 2, Short.MAX_VALUE)
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 50, Short.MAX_VALUE)
+        );
+
+        seccionPerfil.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 20, -1, 50));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(22, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(18, 18, 18)
-                                .addComponent(lblNombre))
-                            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1078, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(historialbt)
-                        .addGap(310, 310, 310))))
+                        .addGap(281, 281, 281))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1078, Short.MAX_VALUE)
+                            .addComponent(seccionPerfil, javax.swing.GroupLayout.DEFAULT_SIZE, 1078, Short.MAX_VALUE))
+                        .addGap(18, 18, 18))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(lblNombre))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 138, Short.MAX_VALUE)
+                .addGap(22, 22, 22)
+                .addComponent(seccionPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(historialbt)
-                .addGap(27, 27, 27)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -239,12 +408,32 @@ public class PerfilJugador extends javax.swing.JFrame {
     private javax.swing.JPanel agentesPanel;
     private javax.swing.JToggleButton historialbt;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JLabel lblACS;
+    private javax.swing.JLabel lblAsistencias;
+    private javax.swing.JLabel lblCorreo;
+    private javax.swing.JLabel lblKills;
+    private javax.swing.JLabel lblMuertes;
+    private javax.swing.JLabel lblNivel;
     private javax.swing.JLabel lblNombre;
+    private javax.swing.JLabel lblRango;
+    private javax.swing.JLabel lblWinrate;
     private javax.swing.JScrollPane mapas;
     private javax.swing.JPanel mapasPanel;
     private javax.swing.JScrollPane roles;
     private javax.swing.JPanel rolesPanel;
+    private javax.swing.JPanel seccionPerfil;
     // End of variables declaration//GEN-END:variables
 }

@@ -38,7 +38,7 @@ public class lista_de_partidas extends javax.swing.JFrame {
         query = new Query();
         this.nombre=nombre;
         this.idJugador=idJugador;
-        query.llenarHistorial(historial, idJugador); 
+        //query.llenarHistorial(historial, idJugador); 
         usuario.setText(nombre);
         this.setResizable(false);
         this.setLocationRelativeTo(null);

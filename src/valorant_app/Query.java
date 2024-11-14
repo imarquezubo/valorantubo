@@ -143,8 +143,6 @@ public class Query extends Conexion {
         return nombre;
     }
     
-    
-    
     String getPassword(String nombre){
         String password = null;
         conectar();
@@ -206,7 +204,137 @@ public class Query extends Conexion {
         }
         return correo;
     }
-    // Método nuevo para obtener datos del usuario
+    
+    public int getNivel(String nombreUsuario){
+        int nivel=0;
+        conectar();
+        try {
+            resultado = instruccion.executeQuery("SELECT jugador.nivel FROM jugador WHERE jugador.nombre = '"+nombreUsuario+"';");
+            resultado.next();
+            nivel = Integer.parseInt(resultado.getString(1));
+        } catch (SQLException ex) {
+            Logger.getLogger(Query.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            cerrarConexion();
+        }
+        return nivel;
+    }
+    
+    public int getAsistenciasTotales(String nombreUsuario){
+        int asistenciasTotales=0;
+        conectar();
+        try {
+            resultado = instruccion.executeQuery("SELECT SUM(estadistica.Asistencias) FROM partida_jugador " +
+                "INNER JOIN jugador ON jugador.id_jugador = partida_jugador.id_jugador " +
+                "INNER JOIN partida ON partida.id_partida = partida_jugador.id_partida " +
+                "INNER JOIN estadistica ON estadistica.id_estadistica = partida_jugador.id_estadistica " +
+                "WHERE jugador.nombre = '"+nombreUsuario+"';");
+            resultado.next();
+            asistenciasTotales = Integer.parseInt(resultado.getString(1));
+        } catch (SQLException ex) {
+            Logger.getLogger(Query.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            cerrarConexion();
+        }
+        return asistenciasTotales;
+    }
+    
+    public int getKillsTotales(String nombreUsuario){
+        int killsTotales=0;
+        conectar();
+        try {
+            resultado = instruccion.executeQuery("SELECT SUM(estadistica.asesinatos) FROM partida_jugador " +
+                "INNER JOIN jugador ON jugador.id_jugador = partida_jugador.id_jugador " +
+                "INNER JOIN partida ON partida.id_partida = partida_jugador.id_partida " +
+                "INNER JOIN estadistica ON estadistica.id_estadistica = partida_jugador.id_estadistica " +
+                "WHERE jugador.nombre = '"+nombreUsuario+"';");
+            resultado.next();
+            killsTotales = Integer.parseInt(resultado.getString(1));
+        } catch (SQLException ex) {
+            Logger.getLogger(Query.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            cerrarConexion();
+        }
+        return killsTotales;
+    }
+    
+    public int getMuertesTotales(String nombreUsuario){
+        int muertesTotales=0;
+        conectar();
+        try {
+            resultado = instruccion.executeQuery("SELECT SUM(estadistica.Muertes) FROM partida_jugador " +
+                "INNER JOIN jugador ON jugador.id_jugador = partida_jugador.id_jugador " +
+                "INNER JOIN partida ON partida.id_partida = partida_jugador.id_partida " +
+                "INNER JOIN estadistica ON estadistica.id_estadistica = partida_jugador.id_estadistica " +
+                "WHERE jugador.nombre = '"+nombreUsuario+"';");
+            resultado.next();
+            muertesTotales = Integer.parseInt(resultado.getString(1));
+        } catch (SQLException ex) {
+            Logger.getLogger(Query.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            cerrarConexion();
+        }
+        return muertesTotales;
+    }
+    
+    public float getACSPromedio(String nombreUsuario){
+        float acs=0;
+        conectar();
+        try {
+            resultado = instruccion.executeQuery("SELECT AVG(estadistica.ACS) FROM partida_jugador " +
+                "INNER JOIN jugador ON jugador.id_jugador = partida_jugador.id_jugador " +
+                "INNER JOIN partida ON partida.id_partida = partida_jugador.id_partida " +
+                "INNER JOIN estadistica ON estadistica.id_estadistica = partida_jugador.id_estadistica " +
+                "WHERE jugador.nombre = '"+nombreUsuario+"';");
+            resultado.next();
+            acs = Float.parseFloat(resultado.getString(1));
+        } catch (SQLException ex) {
+            Logger.getLogger(Query.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            cerrarConexion();
+        }
+        return acs;
+    }
+    
+    public int getWinrateTotal(String nombreUsuario){
+        int winRate = 0;
+        conectar();
+        try {
+            resultado = instruccion.executeQuery("SELECT ROUND(SUM(CASE WHEN equipo.rondas_ganadas = 13 THEN 1 ELSE 0 END) / COUNT(*) *100,0)  as Winrate " +
+                "FROM partida_jugador " +
+                "INNER JOIN jugador ON jugador.id_jugador = partida_jugador.id_jugador " +
+                "INNER JOIN partida ON partida.id_partida = partida_jugador.id_partida " +
+                "INNER JOIN equipo ON equipo.id_equipo = partida_jugador.id_equipo " +
+                "WHERE jugador.nombre = '"+nombreUsuario+"';");
+            resultado.next();
+            winRate = Integer.parseInt(resultado.getString(1));
+        } catch (SQLException ex) {
+            Logger.getLogger(Query.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            cerrarConexion();
+        }
+        
+        return winRate;
+    }
+    
+    public String getRango(String nombreUsuario) {
+        String rango="";
+        conectar();
+        try {
+            resultado = instruccion.executeQuery("SELECT rango.nombre FROM jugador " +
+                    "INNER JOIN rango ON rango.id_rango = jugador.id_rango " +
+                    "WHERE jugador.nombre = 'PlayerOne';");
+            resultado.next();
+            rango = resultado.getString(1);
+        } catch (SQLException ex) {
+            Logger.getLogger(Query.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+        return rango;
+    }
+           
+    
+// Método nuevo para obtener datos del usuario
     public String[] getUserData(String nombreUsuario) {
         String[] userData = new String[4]; // Ahora almacenamos nombre, correo, nivel y rango
     conectar();
@@ -235,61 +363,8 @@ public class Query extends Conexion {
     }
     return userData; // Retorna el array con los datos
     }
-    public void llenarHistorial(JTable historial, String idJugador) {
-        DefaultTableModel model = new DefaultTableModel();
-        model.setColumnIdentifiers(new String[]{"ID", "Mapa", "Modo", "Agente", "Fecha", "Rol del Equipo", "Rondas Ganadas", "Resultado", "Acción"});
-        historial.setModel(model);
-
-        conectar();
-        try {
-            String query = "SELECT " +
-                           "partida.id_partida, " +
-                           "mapa.nombre AS mapa, " +
-                           "tipo_partida.descripcion AS modo, " +
-                           "agente.nombre AS agente, " +
-                           "partida.fecha, " +
-                           "equipo.rol_equipo, " +
-                           "equipo.rondas_ganadas " +
-                           "FROM " +
-                           "partida_jugador " +
-                           "INNER JOIN jugador ON jugador.id_jugador = partida_jugador.id_jugador " +
-                           "INNER JOIN partida ON partida.id_partida = partida_jugador.id_partida " +
-                           "INNER JOIN mapa ON mapa.id_mapa = partida.id_mapa " +
-                           "INNER JOIN tipo_partida ON tipo_partida.id_tipo_partida = partida.id_tipo_partida " +
-                           "INNER JOIN estadistica ON estadistica.id_estadistica = partida_jugador.id_estadistica " +
-                           "INNER JOIN agente ON agente.id_agente = estadistica.id_agente " +
-                           "INNER JOIN equipo ON equipo.id_equipo = partida_jugador.id_equipo " +
-                           "WHERE jugador.id_jugador = ?";
-
-            PreparedStatement ps = conexion.prepareStatement(query);
-            ps.setString(1, idJugador);
-            resultado = ps.executeQuery();
-
-            while (resultado.next()) {
-                String id = resultado.getString("id_partida");
-                String mapa = resultado.getString("mapa");
-                String modo = resultado.getString("modo");
-                String agente = resultado.getString("agente");
-                String fecha = resultado.getString("fecha");
-                String rolEquipo = resultado.getString("rol_equipo");
-                int rondasGanadas = resultado.getInt("rondas_ganadas");
-                String resultadoPartida = (rolEquipo.equals("Atacante") && rondasGanadas >= 13) || 
-                                          (rolEquipo.equals("Defensor") && rondasGanadas >= 13) ? "Victoria" : "Derrota";
-
-                // Agrega una fila con un botón
-                model.addRow(new Object[]{id, mapa, modo, agente, fecha, rolEquipo, rondasGanadas, resultadoPartida, "Ver Detalles"});
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(Query.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            cerrarConexion();
-        }
-
-
-        // Agrega un TableCellRenderer y TableCellEditor para la columna de botones
-        historial.getColumn("Acción").setCellRenderer(new ButtonRenderer());
-        historial.getColumn("Acción").setCellEditor(new ButtonEditor(new JCheckBox(), historial));
-    }
+    
+    
 public void obtenerDetallesPartida(String idPartida, JTable tablaDetalles) {
     DefaultTableModel model = new DefaultTableModel();
     model.setColumnIdentifiers(new String[]{"Nombre Jugador", "Equipo", "Agente", "Asesinatos", "Muertes", "Asistencias", "K/D", "ACS", "Puntaje Eco", "Primeros Asesinatos", "Plants", "Defusals"});
@@ -374,111 +449,7 @@ class EquipoCellRenderer extends DefaultTableCellRenderer {
     }
 }
 
-    class ButtonRenderer extends JButton implements TableCellRenderer {
-    public ButtonRenderer() {
-        setOpaque(true);
-    }
-
-    @Override
-    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-        setText((value == null) ? "Ver Detalles" : value.toString());
-        return this;
-    }
-}
-class ButtonEditor extends DefaultCellEditor {
-    private JButton button;
-    private String label;
-    private boolean clicked;
-    private JTable table;
-
-    public ButtonEditor(JCheckBox checkBox, JTable table) {
-        super(checkBox);
-        this.table = table;
-        button = new JButton();
-        button.setOpaque(true);
-
-button.addActionListener(new ActionListener() {
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        int filaSeleccionada = table.getSelectedRow();
-        if (filaSeleccionada != -1) {
-            String idPartida = table.getValueAt(filaSeleccionada, 0).toString();
-            System.out.println("ID de partida seleccionado: " + idPartida);
-
-            Query query = new Query();
-            JTable tablaDetalles = new JTable();
-            tablaDetalles.setOpaque(true);
-            ((DefaultTableCellRenderer) tablaDetalles.getDefaultRenderer(Object.class)).setOpaque(true);
-
-            query.obtenerDetallesPartida(idPartida, tablaDetalles);
-
-            JFrame detallesFrame = new JFrame("Detalles de la Partida");
-            detallesFrame.setSize(1000, 600);
-            detallesFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
-            JPanel panel = new JPanel() {
-                private Image backgroundImage = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/imagenes/valoranttracker.jpg"));
-
-                @Override
-                protected void paintComponent(Graphics g) {
-                    super.paintComponent(g);
-                    g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
-                }
-            };
-            panel.setLayout(null);
-
-            // Ajustar tamaño y posición del JTable para centrarlo
-            JScrollPane scrollPane = new JScrollPane(tablaDetalles);
-            int scrollPaneWidth = 800;
-            int scrollPaneHeight = 190;
-            int panelWidth = detallesFrame.getWidth();
-            int panelHeight = detallesFrame.getHeight();
-
-            // Calcular la posición para centrar el JTable en el JFrame
-            int xPosition = (panelWidth - scrollPaneWidth) / 2 - 10; // Ajuste fino de -10
-            int yPosition = (panelHeight - scrollPaneHeight) / 2 - 30; // Ajuste fino de -30
-
-            scrollPane.setBounds(xPosition, yPosition, scrollPaneWidth, scrollPaneHeight);
-
-            panel.add(scrollPane);
-            detallesFrame.add(panel);
-            detallesFrame.setVisible(true);
-        }
-        fireEditingStopped();
-    }
-});
-
-    }
-
-    public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
-        label = (value == null) ? "Ver Detalles" : value.toString();
-        button.setText(label);
-        clicked = true;
-        return button;
-    }
-
-    public Object getCellEditorValue() {
-        if (clicked) {
-            // Aquí puedes manejar acciones adicionales si es necesario
-            clicked = false;
-        }
-        return label;
-    }
-
-    public boolean stopCellEditing() {
-        clicked = false;
-        return super.stopCellEditing();
-    }
-
-    @Override
-    protected void fireEditingStopped() {
-        super.fireEditingStopped();
-    }
-}
-
-
-    
-    
+    /*
     private void cerrarConexion() {
         try {
         if (resultado != null) resultado.close();
@@ -487,7 +458,8 @@ button.addActionListener(new ActionListener() {
     } catch (SQLException ex) {
         Logger.getLogger(Query.class.getName()).log(Level.SEVERE, null, ex);
     }
-    }
+
+    }*/
     String obtenerIdJugador(String nombre) {
         String idJugador = "";
         conectar();
@@ -666,6 +638,7 @@ button.addActionListener(new ActionListener() {
 
     return cantidadRoles;
 }
+   
    public ResultSet mapasEst(String nombreUsuario, int index) {
     conectar();
     try {
@@ -723,8 +696,168 @@ button.addActionListener(new ActionListener() {
     return cantidadMapas;
 }
 
-
+   /*
    
+   public void llenarHistorial(JTable historial, String idJugador) {
+        DefaultTableModel model = new DefaultTableModel();
+        model.setColumnIdentifiers(new String[]{"ID", "Mapa", "Modo", "Agente", "Fecha", "Rol del Equipo", "Rondas Ganadas", "Resultado", "Acción"});
+        historial.setModel(model);
+
+        conectar();
+        try {
+            String query = "SELECT " +
+                           "partida.id_partida, " +
+                           "mapa.nombre AS mapa, " +
+                           "tipo_partida.descripcion AS modo, " +
+                           "agente.nombre AS agente, " +
+                           "partida.fecha, " +
+                           "equipo.rol_equipo, " +
+                           "equipo.rondas_ganadas " +
+                           "FROM " +
+                           "partida_jugador " +
+                           "INNER JOIN jugador ON jugador.id_jugador = partida_jugador.id_jugador " +
+                           "INNER JOIN partida ON partida.id_partida = partida_jugador.id_partida " +
+                           "INNER JOIN mapa ON mapa.id_mapa = partida.id_mapa " +
+                           "INNER JOIN tipo_partida ON tipo_partida.id_tipo_partida = partida.id_tipo_partida " +
+                           "INNER JOIN estadistica ON estadistica.id_estadistica = partida_jugador.id_estadistica " +
+                           "INNER JOIN agente ON agente.id_agente = estadistica.id_agente " +
+                           "INNER JOIN equipo ON equipo.id_equipo = partida_jugador.id_equipo " +
+                           "WHERE jugador.id_jugador = ?";
+
+            PreparedStatement ps = conexion.prepareStatement(query);
+            ps.setString(1, idJugador);
+            resultado = ps.executeQuery();
+
+            while (resultado.next()) {
+                String id = resultado.getString("id_partida");
+                String mapa = resultado.getString("mapa");
+                String modo = resultado.getString("modo");
+                String agente = resultado.getString("agente");
+                String fecha = resultado.getString("fecha");
+                String rolEquipo = resultado.getString("rol_equipo");
+                int rondasGanadas = resultado.getInt("rondas_ganadas");
+                String resultadoPartida = (rolEquipo.equals("Atacante") && rondasGanadas >= 13) || 
+                                          (rolEquipo.equals("Defensor") && rondasGanadas >= 13) ? "Victoria" : "Derrota";
+
+                // Agrega una fila con un botón
+                model.addRow(new Object[]{id, mapa, modo, agente, fecha, rolEquipo, rondasGanadas, resultadoPartida, "Ver Detalles"});
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Query.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            cerrarConexion();
+        }
+
+
+        // Agrega un TableCellRenderer y TableCellEditor para la columna de botones
+        historial.getColumn("Acción").setCellRenderer(new ButtonRenderer());
+        historial.getColumn("Acción").setCellEditor(new ButtonEditor(new JCheckBox(), historial));
+    }
+   
+   class ButtonRenderer extends JButton implements TableCellRenderer {
+    public ButtonRenderer() {
+        setOpaque(true);
+    }
+
+    @Override
+    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+        setText((value == null) ? "Ver Detalles" : value.toString());
+        return this;
+    }
+}
+class ButtonEditor extends DefaultCellEditor {
+    private JButton button;
+    private String label;
+    private boolean clicked;
+    private JTable table;
+
+    public ButtonEditor(JCheckBox checkBox, JTable table) {
+        super(checkBox);
+        this.table = table;
+        button = new JButton();
+        button.setOpaque(true);
+
+button.addActionListener(new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        int filaSeleccionada = table.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            String idPartida = table.getValueAt(filaSeleccionada, 0).toString();
+            System.out.println("ID de partida seleccionado: " + idPartida);
+
+            Query query = new Query();
+            JTable tablaDetalles = new JTable();
+            tablaDetalles.setOpaque(true);
+            ((DefaultTableCellRenderer) tablaDetalles.getDefaultRenderer(Object.class)).setOpaque(true);
+
+            query.obtenerDetallesPartida(idPartida, tablaDetalles);
+
+            JFrame detallesFrame = new JFrame("Detalles de la Partida");
+            detallesFrame.setSize(1000, 600);
+            detallesFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+            JPanel panel = new JPanel() {
+                private Image backgroundImage = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/imagenes/valoranttracker.jpg"));
+
+                @Override
+                protected void paintComponent(Graphics g) {
+                    super.paintComponent(g);
+                    g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+                }
+            };
+            panel.setLayout(null);
+
+            // Ajustar tamaño y posición del JTable para centrarlo
+            JScrollPane scrollPane = new JScrollPane(tablaDetalles);
+            int scrollPaneWidth = 800;
+            int scrollPaneHeight = 190;
+            int panelWidth = detallesFrame.getWidth();
+            int panelHeight = detallesFrame.getHeight();
+
+            // Calcular la posición para centrar el JTable en el JFrame
+            int xPosition = (panelWidth - scrollPaneWidth) / 2 - 10; // Ajuste fino de -10
+            int yPosition = (panelHeight - scrollPaneHeight) / 2 - 30; // Ajuste fino de -30
+
+            scrollPane.setBounds(xPosition, yPosition, scrollPaneWidth, scrollPaneHeight);
+
+            panel.add(scrollPane);
+            detallesFrame.add(panel);
+            detallesFrame.setVisible(true);
+        }
+        fireEditingStopped();
+    }
+});
+
+    }
+
+    public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+        label = (value == null) ? "Ver Detalles" : value.toString();
+        button.setText(label);
+        clicked = true;
+        return button;
+    }
+
+    public Object getCellEditorValue() {
+        if (clicked) {
+            // Aquí puedes manejar acciones adicionales si es necesario
+            clicked = false;
+        }
+        return label;
+    }
+
+    public boolean stopCellEditing() {
+        clicked = false;
+        return super.stopCellEditing();
+    }
+
+    @Override
+    protected void fireEditingStopped() {
+        super.fireEditingStopped();
+    }
+}
+
+
+   */
    
 }
 

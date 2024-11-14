@@ -40,6 +40,15 @@ public class Conexion {
         }
     }
     
+     void cerrarConexion() {
+        try {
+        if (resultado != null) resultado.close();
+        if (instruccion != null) instruccion.close();
+        if (conexion != null) conexion.close();
+    } catch (SQLException ex) {
+        Logger.getLogger(Query.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    }
     
     void comprobarConexion(){
         try {

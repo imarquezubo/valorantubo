@@ -159,7 +159,7 @@ public class login extends javax.swing.JFrame {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, 330, 280));
 
-        lblBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iniciovalorant400.jpg"))); // NOI18N
+        lblBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/valorant400inicioplantilla.jpg"))); // NOI18N
         jPanel1.add(lblBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 400, 400));
 
         titleBar.setBackground(new java.awt.Color(13, 26, 32));

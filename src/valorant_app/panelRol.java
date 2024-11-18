@@ -102,7 +102,7 @@ public class panelRol extends javax.swing.JPanel {
         add(lblDerrotas, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 100, 107, 29));
 
         lblWinrate.setText("[n/n]");
-        add(lblWinrate, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 60, 30, 30));
+        add(lblWinrate, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 60, 70, 30));
     }// </editor-fold>//GEN-END:initComponents
 
 

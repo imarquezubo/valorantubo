@@ -103,6 +103,7 @@ this.setVisible(true); // Asegúrate de mostrar el JFrame
         }
     }
 
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -113,14 +114,16 @@ this.setVisible(true); // Asegúrate de mostrar el JFrame
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        cerrarbt = new javax.swing.JToggleButton();
+        historialbt = new javax.swing.JToggleButton();
+        clasibt = new javax.swing.JToggleButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        roles = new javax.swing.JScrollPane();
-        rolesPanel = new javax.swing.JPanel();
         mapas = new javax.swing.JScrollPane();
         mapasPanel = new javax.swing.JPanel();
+        roles = new javax.swing.JScrollPane();
+        rolesPanel = new javax.swing.JPanel();
         agentes = new javax.swing.JScrollPane();
         agentesPanel = new javax.swing.JPanel();
-        historialbt = new javax.swing.JToggleButton();
         seccionPerfil = new RoundedPanel(20, new Color(21,44,54));
         jLabel4 = new javax.swing.JLabel();
         lblNombre = new javax.swing.JLabel();
@@ -144,26 +147,27 @@ this.setVisible(true); // Asegúrate de mostrar el JFrame
         jPanel6 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
+        historialbt1 = new javax.swing.JToggleButton();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        rolesPanel.setLayout(new javax.swing.BoxLayout(rolesPanel, javax.swing.BoxLayout.PAGE_AXIS));
-        roles.setViewportView(rolesPanel);
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTabbedPane1.addTab("Roles", roles);
-
-        mapasPanel.setLayout(new javax.swing.BoxLayout(mapasPanel, javax.swing.BoxLayout.PAGE_AXIS));
-        mapas.setViewportView(mapasPanel);
-
-        jTabbedPane1.addTab("Mapas", mapas);
-
-        agentesPanel.setLayout(new javax.swing.BoxLayout(agentesPanel, javax.swing.BoxLayout.PAGE_AXIS));
-        agentes.setViewportView(agentesPanel);
-
-        jTabbedPane1.addTab("Agentes", agentes);
+        cerrarbt.setBackground(new java.awt.Color(255, 0, 71));
+        cerrarbt.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        cerrarbt.setForeground(new java.awt.Color(255, 255, 255));
+        cerrarbt.setText("Cerrar Sesión");
+        cerrarbt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cerrarbtActionPerformed(evt);
+            }
+        });
+        jPanel1.add(cerrarbt, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 530, 200, 70));
 
         historialbt.setBackground(new java.awt.Color(255, 0, 71));
+        historialbt.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         historialbt.setForeground(new java.awt.Color(255, 255, 255));
         historialbt.setText("Historial");
         historialbt.addActionListener(new java.awt.event.ActionListener() {
@@ -171,6 +175,35 @@ this.setVisible(true); // Asegúrate de mostrar el JFrame
                 historialbtActionPerformed(evt);
             }
         });
+        jPanel1.add(historialbt, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 230, 200, 70));
+
+        clasibt.setBackground(new java.awt.Color(255, 0, 71));
+        clasibt.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        clasibt.setForeground(new java.awt.Color(255, 255, 255));
+        clasibt.setText("Clasificaciones");
+        clasibt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clasibtActionPerformed(evt);
+            }
+        });
+        jPanel1.add(clasibt, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 380, 200, 70));
+
+        mapasPanel.setLayout(new javax.swing.BoxLayout(mapasPanel, javax.swing.BoxLayout.PAGE_AXIS));
+        mapas.setViewportView(mapasPanel);
+
+        jTabbedPane1.addTab("Mapas", mapas);
+
+        rolesPanel.setLayout(new javax.swing.BoxLayout(rolesPanel, javax.swing.BoxLayout.PAGE_AXIS));
+        roles.setViewportView(rolesPanel);
+
+        jTabbedPane1.addTab("Roles", roles);
+
+        agentesPanel.setLayout(new javax.swing.BoxLayout(agentesPanel, javax.swing.BoxLayout.PAGE_AXIS));
+        agentes.setViewportView(agentesPanel);
+
+        jTabbedPane1.addTab("Agentes", agentes);
+
+        jPanel1.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 194, 804, 479));
 
         seccionPerfil.setBackground(new java.awt.Color(21, 44, 54));
         seccionPerfil.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
@@ -328,65 +361,53 @@ this.setVisible(true); // Asegúrate de mostrar el JFrame
 
         seccionPerfil.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 20, -1, 50));
 
+        historialbt1.setBackground(new java.awt.Color(255, 0, 71));
+        historialbt1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        historialbt1.setForeground(new java.awt.Color(255, 255, 255));
+        historialbt1.setText("Cambiar Contraseña");
+        historialbt1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                historialbt1ActionPerformed(evt);
+            }
+        });
+        seccionPerfil.add(historialbt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 130, 200, 20));
+
+        jPanel1.add(seccionPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 22, 1078, -1));
+
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fondonuevo.jpg"))); // NOI18N
         jLabel2.setText("jLabel2");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1090, -1));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1078, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(seccionPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 1078, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(historialbt)
-                .addContainerGap())
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 1090, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(seccionPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(historialbt)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 679, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 701));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void cerrarbtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarbtActionPerformed
+
+                this.setVisible(false);
+        new login().setVisible(true);
+    }//GEN-LAST:event_cerrarbtActionPerformed
+
+    private void historialbt1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_historialbt1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_historialbt1ActionPerformed
+
     private void historialbtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_historialbtActionPerformed
         // TODO add your handling code here:
-        listaPartidas listapartidas = new listaPartidas(nombreUsuario, query.obtenerIdJugador(nombreUsuario));
+               listaPartidas listapartidas = new listaPartidas(nombreUsuario, query.obtenerIdJugador(nombreUsuario));
             listapartidas.llenarLista();
             listapartidas.setVisible(true);
             this.dispose();
     }//GEN-LAST:event_historialbtActionPerformed
+
+    private void clasibtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clasibtActionPerformed
+        // TODO add your handling code here:
+        clasificacion clasificacion = new clasificacion();
+            clasificacion.llenarClasi();
+            clasificacion.setVisible(true);
+            this.dispose();
+    }//GEN-LAST:event_clasibtActionPerformed
 
     
     /**
@@ -427,7 +448,10 @@ this.setVisible(true); // Asegúrate de mostrar el JFrame
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane agentes;
     private javax.swing.JPanel agentesPanel;
+    private javax.swing.JToggleButton cerrarbt;
+    private javax.swing.JToggleButton clasibt;
     private javax.swing.JToggleButton historialbt;
+    private javax.swing.JToggleButton historialbt1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;

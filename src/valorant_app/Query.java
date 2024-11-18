@@ -695,6 +695,44 @@ class EquipoCellRenderer extends DefaultTableCellRenderer {
 
     return cantidadMapas;
 }
+public ResultSet mejoresJugadores(int index) {
+    conectar();
+    try {
+        resultado = instruccion.executeQuery(
+            "SELECT " +
+                "ROW_NUMBER() OVER (ORDER BY rango.id_rango DESC, " +
+                "ROUND(100 * SUM(CASE WHEN equipo.rondas_ganadas = 13 THEN 1 ELSE 0 END) / COUNT(partida_jugador.id_partida_jugador), 2) DESC) AS Posicion, " +
+                "jugador.nombre AS Nombre, " +
+                "COUNT(partida_jugador.id_partida_jugador) AS Partidas, " +
+                "rango.nombre AS Rango, " +
+                "ROUND(100 * SUM(CASE WHEN equipo.rondas_ganadas = 13 THEN 1 ELSE 0 END) / COUNT(partida_jugador.id_partida_jugador), 2) AS Winrate " +
+            "FROM " +
+                "jugador " +
+            "JOIN " +
+                "partida_jugador ON jugador.id_jugador = partida_jugador.id_jugador " +
+            "JOIN " +
+                "equipo ON partida_jugador.id_equipo = equipo.id_equipo " +
+            "JOIN " +
+                "rango ON jugador.id_rango = rango.id_rango " +
+            "WHERE " +
+                "rango.nombre <> 'Unranked' " + // Excluir jugadores unranked
+            "GROUP BY " +
+                "jugador.nombre, rango.nombre, rango.id_rango " +
+            "ORDER BY " +
+                "rango.id_rango DESC, Winrate DESC " +
+            "LIMIT 10;"
+        );
+        int x = 1;
+        while (x <= index) {
+            resultado.next();
+            x++;
+        }
+    } catch (SQLException ex) {
+        Logger.getLogger(Query.class.getName()).log(Level.SEVERE, null, ex);
+    }
+
+    return resultado;
+}
 
    /*
    

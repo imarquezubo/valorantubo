@@ -374,7 +374,7 @@ this.setVisible(true); // Asegúrate de mostrar el JFrame
 
         jPanel1.add(seccionPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 22, 1078, -1));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fondonuevo.jpg"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fondonuevo123.jpg"))); // NOI18N
         jLabel2.setText("jLabel2");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1090, -1));
 
@@ -394,11 +394,10 @@ this.setVisible(true); // Asegúrate de mostrar el JFrame
     }//GEN-LAST:event_historialbt1ActionPerformed
 
     private void historialbtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_historialbtActionPerformed
-        // TODO add your handling code here:
-               listaPartidas listapartidas = new listaPartidas(nombreUsuario, query.obtenerIdJugador(nombreUsuario));
-            listapartidas.llenarLista();
-            listapartidas.setVisible(true);
-            this.dispose();
+      listaPartidas listapartidas = new listaPartidas(nombreUsuario, idUsuario, this); // Pasa "this"
+    listapartidas.llenarLista();
+    listapartidas.setVisible(true);
+    this.setVisible(false); // Oculta el JFrame actual temporalmente
     }//GEN-LAST:event_historialbtActionPerformed
 
     private void clasibtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clasibtActionPerformed

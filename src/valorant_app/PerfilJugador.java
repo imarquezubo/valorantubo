@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -24,11 +25,14 @@ public class PerfilJugador extends javax.swing.JFrame {
      * Creates new form PerfilJugador
      */
     public PerfilJugador() {
-        initComponents();
-this.setVisible(true); // Asegúrate de mostrar el JFrame
-    System.out.println("Ancho del JFrame: " + this.getWidth());
-    System.out.println("Alto del JFrame: " + this.getHeight());
+       super();
+    initComponents(); // Inicializa los componentes
+    setUndecorated(true); // Forzar eliminación de la barra de título
+    setLocationRelativeTo(null); // Centra la ventana
+    setResizable(false); // Evita que el usuario redimensione
+    setVisible(true); // Muestra el JFrame
     }
+    
     public PerfilJugador(String nombreUsuario, String idUsuario) {
         this.nombreUsuario = nombreUsuario;
         this.idUsuario = idUsuario;
@@ -116,7 +120,6 @@ this.setVisible(true); // Asegúrate de mostrar el JFrame
         jPanel1 = new javax.swing.JPanel();
         cerrarbt = new javax.swing.JToggleButton();
         historialbt = new javax.swing.JToggleButton();
-        clasibt = new javax.swing.JToggleButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         mapas = new javax.swing.JScrollPane();
         mapasPanel = new javax.swing.JPanel();
@@ -164,7 +167,7 @@ this.setVisible(true); // Asegúrate de mostrar el JFrame
                 cerrarbtActionPerformed(evt);
             }
         });
-        jPanel1.add(cerrarbt, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 530, 200, 70));
+        jPanel1.add(cerrarbt, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 470, 200, 70));
 
         historialbt.setBackground(new java.awt.Color(255, 0, 71));
         historialbt.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -175,18 +178,7 @@ this.setVisible(true); // Asegúrate de mostrar el JFrame
                 historialbtActionPerformed(evt);
             }
         });
-        jPanel1.add(historialbt, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 230, 200, 70));
-
-        clasibt.setBackground(new java.awt.Color(255, 0, 71));
-        clasibt.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        clasibt.setForeground(new java.awt.Color(255, 255, 255));
-        clasibt.setText("Clasificaciones");
-        clasibt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                clasibtActionPerformed(evt);
-            }
-        });
-        jPanel1.add(clasibt, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 380, 200, 70));
+        jPanel1.add(historialbt, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 350, 200, 70));
 
         mapasPanel.setLayout(new javax.swing.BoxLayout(mapasPanel, javax.swing.BoxLayout.PAGE_AXIS));
         mapas.setViewportView(mapasPanel);
@@ -364,7 +356,7 @@ this.setVisible(true); // Asegúrate de mostrar el JFrame
         historialbt1.setBackground(new java.awt.Color(255, 0, 71));
         historialbt1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         historialbt1.setForeground(new java.awt.Color(255, 255, 255));
-        historialbt1.setText("Cambiar Contraseña");
+        historialbt1.setText("Ver Perfil");
         historialbt1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 historialbt1ActionPerformed(evt);
@@ -376,9 +368,9 @@ this.setVisible(true); // Asegúrate de mostrar el JFrame
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fondonuevo123.jpg"))); // NOI18N
         jLabel2.setText("jLabel2");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1090, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1090, 740));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 701));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 710));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -390,7 +382,18 @@ this.setVisible(true); // Asegúrate de mostrar el JFrame
     }//GEN-LAST:event_cerrarbtActionPerformed
 
     private void historialbt1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_historialbt1ActionPerformed
-        // TODO add your handling code here:
+             // TODO add your handling code here:
+        String[] userData = query.getUserData(nombreUsuario); // Obtener los datos del usuario
+
+    if (userData != null) {
+        String nombre = userData[0]; // Nombre de usuario
+        String correoElectronico = userData[1]; // Correo electrónico
+
+        DatosPerfil perfil = new DatosPerfil(nombre, correoElectronico);
+        perfil.setVisible(true);
+    } else {
+        JOptionPane.showMessageDialog(this, "Error al cargar los datos del perfil.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_historialbt1ActionPerformed
 
     private void historialbtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_historialbtActionPerformed
@@ -400,55 +403,27 @@ this.setVisible(true); // Asegúrate de mostrar el JFrame
     this.setVisible(false); // Oculta el JFrame actual temporalmente
     }//GEN-LAST:event_historialbtActionPerformed
 
-    private void clasibtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clasibtActionPerformed
-        // TODO add your handling code here:
-        clasificacion clasificacion = new clasificacion();
-            clasificacion.llenarClasi();
-            clasificacion.setVisible(true);
-            this.dispose();
-    }//GEN-LAST:event_clasibtActionPerformed
-
     
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PerfilJugador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PerfilJugador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PerfilJugador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PerfilJugador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+  try {
+    for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+        if ("Nimbus".equals(info.getName())) {
+            javax.swing.UIManager.setLookAndFeel(info.getClassName());
+            break;
         }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new PerfilJugador().setVisible(true);
-            }
-        });
+    }
+} catch (Exception ex) {
+    ex.printStackTrace();
+}
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane agentes;
     private javax.swing.JPanel agentesPanel;
     private javax.swing.JToggleButton cerrarbt;
-    private javax.swing.JToggleButton clasibt;
     private javax.swing.JToggleButton historialbt;
     private javax.swing.JToggleButton historialbt1;
     private javax.swing.JLabel jLabel1;

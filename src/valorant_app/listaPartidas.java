@@ -3,6 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package valorant_app;
+import java.awt.Color;
+import java.awt.Toolkit;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -36,6 +38,8 @@ public class listaPartidas extends javax.swing.JFrame {
         this.setResizable(false);
         lblNombre.setText(nombreUsuario);
          colocarImagenDeFondo();
+         this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/imagenes/valoLogo.png")));
+        this.setTitle("Valorant Tracker");
     }
     private void colocarImagenDeFondo() {
         JLabel fondo = new JLabel(new ImageIcon(getClass().getResource("/imagenes/historial22112024.jpg")));
@@ -75,6 +79,10 @@ public class listaPartidas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        titleBar = new javax.swing.JPanel();
+        btnX = new javax.swing.JLabel();
+        btnMinimize = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         lblNombre = new javax.swing.JLabel();
@@ -84,6 +92,53 @@ public class listaPartidas extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        titleBar.setBackground(new java.awt.Color(21, 44, 54));
+        titleBar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnX.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnX.setForeground(new java.awt.Color(255, 255, 255));
+        btnX.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnX.setText("X");
+        btnX.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnXMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnXMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnXMouseExited(evt);
+            }
+        });
+        titleBar.add(btnX, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 0, 20, 30));
+
+        btnMinimize.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
+        btnMinimize.setForeground(new java.awt.Color(255, 255, 255));
+        btnMinimize.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnMinimize.setText("-");
+        btnMinimize.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnMinimizeMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnMinimizeMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnMinimizeMouseExited(evt);
+            }
+        });
+        titleBar.add(btnMinimize, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 0, 20, 30));
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Valorant Tracker");
+        titleBar.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 140, 30));
+
+        getContentPane().add(titleBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1060, 30));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -97,7 +152,7 @@ public class listaPartidas extends javax.swing.JFrame {
         panel.setLayout(new javax.swing.BoxLayout(panel, javax.swing.BoxLayout.PAGE_AXIS));
         jScrollPane2.setViewportView(panel);
 
-        volverbton.setBackground(new java.awt.Color(255, 0, 71));
+        volverbton.setBackground(new java.awt.Color(255, 68, 87));
         volverbton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         volverbton.setForeground(new java.awt.Color(255, 255, 255));
         volverbton.setText("VOLVER");
@@ -146,22 +201,11 @@ public class listaPartidas extends javax.swing.JFrame {
                 .addGap(43, 43, 43))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 632, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addContainerGap()
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 626, Short.MAX_VALUE)))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 22, -1, 630));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -170,6 +214,36 @@ public class listaPartidas extends javax.swing.JFrame {
     this.dispose(); // Cierra la ventana actual
     perfilJugador.setVisible(true); // Reutiliza la ventana original con los datos intactos
     }//GEN-LAST:event_volverbtonActionPerformed
+
+    private void btnXMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXMouseClicked
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_btnXMouseClicked
+
+    private void btnXMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXMouseEntered
+        // TODO add your handling code here:
+        btnX.setForeground(new Color(255, 68, 87));
+    }//GEN-LAST:event_btnXMouseEntered
+
+    private void btnXMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXMouseExited
+        // TODO add your handling code here:
+        btnX.setForeground(Color.WHITE);
+    }//GEN-LAST:event_btnXMouseExited
+
+    private void btnMinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMinimizeMouseClicked
+        // TODO add your handling code here:
+        this.setState(ICONIFIED);
+    }//GEN-LAST:event_btnMinimizeMouseClicked
+
+    private void btnMinimizeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMinimizeMouseEntered
+        // TODO add your handling code here:
+        btnMinimize.setForeground(new Color(255, 68, 87));
+    }//GEN-LAST:event_btnMinimizeMouseEntered
+
+    private void btnMinimizeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMinimizeMouseExited
+        // TODO add your handling code here:
+        btnMinimize.setForeground(Color.WHITE);
+    }//GEN-LAST:event_btnMinimizeMouseExited
 
     /**
      * @param args the command line arguments
@@ -207,12 +281,16 @@ public class listaPartidas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel btnMinimize;
+    private javax.swing.JLabel btnX;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JPanel panel;
+    private javax.swing.JPanel titleBar;
     private javax.swing.JButton volverbton;
     // End of variables declaration//GEN-END:variables
 }

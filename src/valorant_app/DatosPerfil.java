@@ -2,8 +2,10 @@
  package valorant_app;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 public class DatosPerfil extends javax.swing.JFrame {
@@ -15,50 +17,55 @@ public class DatosPerfil extends javax.swing.JFrame {
      */
     public DatosPerfil(String nombreUsuario,String correoElectronico) {
         // Establece el nombre de usuario y correo electrónico
-    this.nombreUsuario = nombreUsuario;
-    this.correoElectronico = correoElectronico;
+        this.nombreUsuario = nombreUsuario;
+        this.correoElectronico = correoElectronico;
 
-    // Crea el panel de fondo
-    fondo = new FondoPanel(); // Crea una instancia del fondo
-    this.setContentPane(fondo); // Establece el fondo del JFrame
-    this.setLayout(new BorderLayout()); // Establece el layout del JFrame
+        // Crea el panel de fondo
+        fondo = new FondoPanel(); // Crea una instancia del fondo
+        this.setContentPane(fondo); // Establece el fondo del JFrame
+        this.setLayout(new BorderLayout()); // Establece el layout del JFrame
 
-    // Llama a initComponents después de configurar el fondo
-    initComponents(); 
-    
-    makeTextFieldTransparent(jTextField1);
-        makeTextFieldTransparent(jTextField2);
-        makeTextFieldTransparent(jTextField3);
-        makeTextFieldTransparent(jTextField4);
+        // Llama a initComponents después de configurar el fondo
+        initComponents(); 
+        this.setLocationRelativeTo(null);
 
-    // Carga los datos del usuario
-    loadUserData(nombreUsuario);
+        
+        makeTextFieldTransparent(jTextField1);
+            makeTextFieldTransparent(jTextField2);
+            makeTextFieldTransparent(jTextField3);
+            makeTextFieldTransparent(jTextField4);
+        
+        
+        // Carga los datos del usuario
+        loadUserData(nombreUsuario);
 
-    // Asegúrate de que el JFrame es visible
-    this.setVisible(true);
+        // Asegúrate de que el JFrame es visible
+        this.setVisible(true);
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/imagenes/valoLogo.png")));
+        this.setTitle("Valorant Tracker");
     }
      private void makeTextFieldTransparent(javax.swing.JTextField textField) {
         textField.setBackground(new java.awt.Color(0, 0, 0, 0)); // Fondo transparente
         textField.setOpaque(false); // Asegúrate de que el JTextField no sea opaco
     }
     private void loadUserData(String nombreUsuario) {
-    Query query = new Query();
-    String[] userData = query.getUserData(nombreUsuario);
+        Query query = new Query();
+        String[] userData = query.getUserData(nombreUsuario);
 
-    if (userData != null) {
-        // Cargar los datos del usuario desde la base de datos
-        jTextField1.setText(userData[0]); // Nombre de usuario
-        jTextField2.setText(userData[1]); // Correo electrónico
-        jTextField3.setText(userData[2]); // Nivel del jugador
-        jTextField4.setText(userData[3]); // Rango del jugador
-    } else {
-        // Usuario no encontrado
-        System.out.println("Usuario no encontrado.");
-        jTextField1.setText(nombreUsuario); // Mostrar el nombre de usuario
-        jTextField2.setText("No disponible"); // Correo no disponible
-        jTextField3.setText("1"); // Nivel por defecto para nuevos usuarios
-        jTextField4.setText("Unranked"); // Establecer rango por defecto
-    }
+        if (userData != null) {
+            // Cargar los datos del usuario desde la base de datos
+            jTextField1.setText(userData[0]); // Nombre de usuario
+            jTextField2.setText(userData[1]); // Correo electrónico
+            jTextField3.setText(userData[2]); // Nivel del jugador
+            jTextField4.setText(userData[3]); // Rango del jugador
+        } else {
+            // Usuario no encontrado
+            System.out.println("Usuario no encontrado.");
+            jTextField1.setText(nombreUsuario); // Mostrar el nombre de usuario
+            jTextField2.setText("No disponible"); // Correo no disponible
+            jTextField3.setText("1"); // Nivel por defecto para nuevos usuarios
+            jTextField4.setText("Unranked"); // Establecer rango por defecto
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -69,6 +76,10 @@ public class DatosPerfil extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        titleBar = new javax.swing.JPanel();
+        btnX = new javax.swing.JLabel();
+        btnMinimize = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jPanel1 = new FondoPanel();
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
@@ -78,8 +89,56 @@ public class DatosPerfil extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setUndecorated(true);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        titleBar.setBackground(new java.awt.Color(21, 44, 54));
+        titleBar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnX.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnX.setForeground(new java.awt.Color(255, 255, 255));
+        btnX.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnX.setText("X");
+        btnX.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnXMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnXMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnXMouseExited(evt);
+            }
+        });
+        titleBar.add(btnX, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 0, 20, 30));
+
+        btnMinimize.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
+        btnMinimize.setForeground(new java.awt.Color(255, 255, 255));
+        btnMinimize.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnMinimize.setText("-");
+        btnMinimize.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnMinimizeMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnMinimizeMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnMinimizeMouseExited(evt);
+            }
+        });
+        titleBar.add(btnMinimize, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 0, 20, 30));
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Valorant Tracker");
+        titleBar.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 140, 30));
+
+        getContentPane().add(titleBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 30));
 
         jPanel1.setPreferredSize(new java.awt.Dimension(400, 305));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTextField1.setEditable(false);
         jTextField1.setBackground(new java.awt.Color(12, 25, 32));
@@ -91,6 +150,7 @@ public class DatosPerfil extends javax.swing.JFrame {
                 jTextField1ActionPerformed(evt);
             }
         });
+        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(137, 75, 180, 29));
 
         jTextField2.setEditable(false);
         jTextField2.setBackground(new java.awt.Color(13, 26, 32));
@@ -101,6 +161,7 @@ public class DatosPerfil extends javax.swing.JFrame {
                 jTextField2ActionPerformed(evt);
             }
         });
+        jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(137, 116, 155, 22));
 
         jTextField3.setEditable(false);
         jTextField3.setBackground(new java.awt.Color(13, 26, 32));
@@ -111,6 +172,7 @@ public class DatosPerfil extends javax.swing.JFrame {
                 jTextField3ActionPerformed(evt);
             }
         });
+        jPanel1.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 150, 122, 22));
 
         jTextField4.setBackground(new java.awt.Color(13, 26, 32));
         jTextField4.setForeground(new java.awt.Color(255, 255, 255));
@@ -120,6 +182,7 @@ public class DatosPerfil extends javax.swing.JFrame {
                 jTextField4ActionPerformed(evt);
             }
         });
+        jPanel1.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(137, 184, 155, 22));
 
         btnCambiarContrasena.setBackground(new java.awt.Color(255, 68, 87));
         btnCambiarContrasena.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -131,63 +194,13 @@ public class DatosPerfil extends javax.swing.JFrame {
                 btnCambiarContrasenaActionPerformed(evt);
             }
         });
+        jPanel1.add(btnCambiarContrasena, new org.netbeans.lib.awtextra.AbsoluteConstraints(128, 243, 151, 28));
 
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Nivel");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(137, 153, -1, -1));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(126, 128, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel2)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jTextField3))
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(83, 83, 83))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnCambiarContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(121, 121, 121))))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(75, 75, 75)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
-                .addComponent(btnCambiarContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34))
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, -1, 313));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -205,61 +218,58 @@ public class DatosPerfil extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void btnCambiarContrasenaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarContrasenaActionPerformed
-     abrirCambioContrasena();   // TODO add your handling code here:
+        CambiarContrasenaFramee cambiarContrasenaFrame = new CambiarContrasenaFramee();
+        cambiarContrasenaFrame.setVisible(true);
     }//GEN-LAST:event_btnCambiarContrasenaActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
-private void abrirCambioContrasena() {
-    // Crear la instancia del JFrame CambiarContrasenaFrame y mostrarlo
-    CambiarContrasenaFramee cambiarContrasenaFrame = new CambiarContrasenaFramee();
-    cambiarContrasenaFrame.setVisible(true);
-}
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DatosPerfil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DatosPerfil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DatosPerfil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DatosPerfil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                // Crea una instancia de DatosPerfil con un nombre y correo de prueba
-                new DatosPerfil("NombreDeUsuario", "correo@ejemplo.com").setVisible(true);
-            }
-        });
-    }
+    private void btnXMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXMouseClicked
+        // TODO add your handling code here:
+        //System.exit(0);
+        dispose();
+    }//GEN-LAST:event_btnXMouseClicked
+
+    private void btnXMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXMouseEntered
+        // TODO add your handling code here:
+        btnX.setForeground(new Color(255, 68, 87));
+    }//GEN-LAST:event_btnXMouseEntered
+
+    private void btnXMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXMouseExited
+        // TODO add your handling code here:
+        btnX.setForeground(Color.WHITE);
+    }//GEN-LAST:event_btnXMouseExited
+
+    private void btnMinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMinimizeMouseClicked
+        // TODO add your handling code here:
+        this.setState(ICONIFIED);
+    }//GEN-LAST:event_btnMinimizeMouseClicked
+
+    private void btnMinimizeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMinimizeMouseEntered
+        // TODO add your handling code here:
+        btnMinimize.setForeground(new Color(255, 68, 87));
+    }//GEN-LAST:event_btnMinimizeMouseEntered
+
+    private void btnMinimizeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMinimizeMouseExited
+        // TODO add your handling code here:
+        btnMinimize.setForeground(Color.WHITE);
+    }//GEN-LAST:event_btnMinimizeMouseExited
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCambiarContrasena;
+    private javax.swing.JLabel btnMinimize;
+    private javax.swing.JLabel btnX;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
+    private javax.swing.JPanel titleBar;
     // End of variables declaration//GEN-END:variables
 class FondoPanel extends JPanel {
     private Image imagen;

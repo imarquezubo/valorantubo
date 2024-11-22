@@ -47,6 +47,7 @@ public class login extends javax.swing.JFrame {
         titleBar = new javax.swing.JPanel();
         btnX = new javax.swing.JLabel();
         btnMinimize = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -162,7 +163,7 @@ public class login extends javax.swing.JFrame {
         lblBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/valorant400inicioplantilla.jpg"))); // NOI18N
         jPanel1.add(lblBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 400, 400));
 
-        titleBar.setBackground(new java.awt.Color(13, 26, 32));
+        titleBar.setBackground(new java.awt.Color(21, 44, 54));
         titleBar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnX.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -198,6 +199,12 @@ public class login extends javax.swing.JFrame {
             }
         });
         titleBar.add(btnMinimize, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 0, 20, 30));
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Valorant Tracker");
+        titleBar.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 140, 30));
 
         jPanel1.add(titleBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 30));
 
@@ -364,6 +371,7 @@ private void abrirCambioContrasena() {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblBackground;

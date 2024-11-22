@@ -5,6 +5,7 @@
 package valorant_app;
 
 import java.awt.Color;
+import java.awt.Toolkit;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -25,12 +26,13 @@ public class PerfilJugador extends javax.swing.JFrame {
      * Creates new form PerfilJugador
      */
     public PerfilJugador() {
-       super();
-    initComponents(); // Inicializa los componentes
-    setUndecorated(true); // Forzar eliminación de la barra de título
-    setLocationRelativeTo(null); // Centra la ventana
-    setResizable(false); // Evita que el usuario redimensione
-    setVisible(true); // Muestra el JFrame
+        super();
+        initComponents(); // Inicializa los componentes
+        setLocationRelativeTo(null); // Centra la ventana
+        setResizable(false); // Evita que el usuario redimensione
+        setVisible(true); // Muestra el JFrame
+        
+        
     }
     
     public PerfilJugador(String nombreUsuario, String idUsuario) {
@@ -48,6 +50,8 @@ public class PerfilJugador extends javax.swing.JFrame {
         lblACS.setText(String.valueOf(Math.round(query.getACSPromedio(nombreUsuario))));
         lblWinrate.setText(String.valueOf(query.getWinrateTotal(nombreUsuario)) + "%");
         lblRango.setText(query.getRango(nombreUsuario));
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/imagenes/valoLogo.png")));
+        this.setTitle("Valorant Tracker");
     }
     
     public void llenarAgentes() {
@@ -117,6 +121,10 @@ public class PerfilJugador extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        titleBar = new javax.swing.JPanel();
+        btnX = new javax.swing.JLabel();
+        btnMinimize = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         cerrarbt = new javax.swing.JToggleButton();
         historialbt = new javax.swing.JToggleButton();
@@ -128,7 +136,7 @@ public class PerfilJugador extends javax.swing.JFrame {
         agentes = new javax.swing.JScrollPane();
         agentesPanel = new javax.swing.JPanel();
         seccionPerfil = new RoundedPanel(20, new Color(21,44,54));
-        jLabel4 = new javax.swing.JLabel();
+        logo = new javax.swing.JLabel();
         lblNombre = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         lblCorreo = new javax.swing.JLabel();
@@ -151,14 +159,60 @@ public class PerfilJugador extends javax.swing.JFrame {
         jPanel7 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         historialbt1 = new javax.swing.JToggleButton();
-        jLabel2 = new javax.swing.JLabel();
+        background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        titleBar.setBackground(new java.awt.Color(21, 44, 54));
+        titleBar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnX.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnX.setForeground(new java.awt.Color(255, 255, 255));
+        btnX.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnX.setText("X");
+        btnX.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnXMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnXMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnXMouseExited(evt);
+            }
+        });
+        titleBar.add(btnX, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 0, 20, 30));
+
+        btnMinimize.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
+        btnMinimize.setForeground(new java.awt.Color(255, 255, 255));
+        btnMinimize.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnMinimize.setText("-");
+        btnMinimize.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnMinimizeMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnMinimizeMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnMinimizeMouseExited(evt);
+            }
+        });
+        titleBar.add(btnMinimize, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 0, 20, 30));
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Valorant Tracker");
+        titleBar.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 140, 30));
+
+        getContentPane().add(titleBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1090, 30));
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        cerrarbt.setBackground(new java.awt.Color(255, 0, 71));
+        cerrarbt.setBackground(new java.awt.Color(255, 68, 87));
         cerrarbt.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         cerrarbt.setForeground(new java.awt.Color(255, 255, 255));
         cerrarbt.setText("Cerrar Sesión");
@@ -167,9 +221,9 @@ public class PerfilJugador extends javax.swing.JFrame {
                 cerrarbtActionPerformed(evt);
             }
         });
-        jPanel1.add(cerrarbt, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 470, 200, 70));
+        jPanel1.add(cerrarbt, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 470, 190, 50));
 
-        historialbt.setBackground(new java.awt.Color(255, 0, 71));
+        historialbt.setBackground(new java.awt.Color(255, 68, 87));
         historialbt.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         historialbt.setForeground(new java.awt.Color(255, 255, 255));
         historialbt.setText("Historial");
@@ -178,7 +232,7 @@ public class PerfilJugador extends javax.swing.JFrame {
                 historialbtActionPerformed(evt);
             }
         });
-        jPanel1.add(historialbt, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 350, 200, 70));
+        jPanel1.add(historialbt, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 350, 190, 50));
 
         mapasPanel.setLayout(new javax.swing.BoxLayout(mapasPanel, javax.swing.BoxLayout.PAGE_AXIS));
         mapas.setViewportView(mapasPanel);
@@ -195,16 +249,16 @@ public class PerfilJugador extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Agentes", agentes);
 
-        jPanel1.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 194, 804, 479));
+        jPanel1.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 800, 430));
 
         seccionPerfil.setBackground(new java.awt.Color(21, 44, 54));
         seccionPerfil.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
         seccionPerfil.setPreferredSize(new java.awt.Dimension(969, 160));
         seccionPerfil.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/valorant1_1.png"))); // NOI18N
-        jLabel4.setText("jLabel4");
-        seccionPerfil.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/valorant1_1.png"))); // NOI18N
+        logo.setText("jLabel4");
+        seccionPerfil.add(logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 0, 290, 60));
 
         lblNombre.setBackground(new java.awt.Color(228, 228, 228));
         lblNombre.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
@@ -223,12 +277,12 @@ public class PerfilJugador extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(228, 228, 228));
         jLabel3.setText("Nivel");
-        seccionPerfil.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, -1, -1));
+        seccionPerfil.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, -1, -1));
 
         lblNivel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lblNivel.setForeground(new java.awt.Color(228, 228, 228));
         lblNivel.setText("[N]");
-        seccionPerfil.add(lblNivel, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 90, -1, -1));
+        seccionPerfil.add(lblNivel, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 80, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(228, 228, 228));
@@ -353,7 +407,7 @@ public class PerfilJugador extends javax.swing.JFrame {
 
         seccionPerfil.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 20, -1, 50));
 
-        historialbt1.setBackground(new java.awt.Color(255, 0, 71));
+        historialbt1.setBackground(new java.awt.Color(255, 68, 87));
         historialbt1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         historialbt1.setForeground(new java.awt.Color(255, 255, 255));
         historialbt1.setText("Ver Perfil");
@@ -362,15 +416,15 @@ public class PerfilJugador extends javax.swing.JFrame {
                 historialbt1ActionPerformed(evt);
             }
         });
-        seccionPerfil.add(historialbt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 130, 200, 20));
+        seccionPerfil.add(historialbt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 120, 110, 30));
 
-        jPanel1.add(seccionPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 22, 1078, -1));
+        jPanel1.add(seccionPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 1030, -1));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fondonuevo123.jpg"))); // NOI18N
-        jLabel2.setText("jLabel2");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1090, 740));
+        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fondo_main.jpg"))); // NOI18N
+        background.setText("jLabel2");
+        jPanel1.add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1090, 670));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 710));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, -1, 670));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -403,6 +457,36 @@ public class PerfilJugador extends javax.swing.JFrame {
     this.setVisible(false); // Oculta el JFrame actual temporalmente
     }//GEN-LAST:event_historialbtActionPerformed
 
+    private void btnXMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXMouseClicked
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_btnXMouseClicked
+
+    private void btnXMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXMouseEntered
+        // TODO add your handling code here:
+        btnX.setForeground(new Color(255, 68, 87));
+    }//GEN-LAST:event_btnXMouseEntered
+
+    private void btnXMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXMouseExited
+        // TODO add your handling code here:
+        btnX.setForeground(Color.WHITE);
+    }//GEN-LAST:event_btnXMouseExited
+
+    private void btnMinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMinimizeMouseClicked
+        // TODO add your handling code here:
+        this.setState(ICONIFIED);
+    }//GEN-LAST:event_btnMinimizeMouseClicked
+
+    private void btnMinimizeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMinimizeMouseEntered
+        // TODO add your handling code here:
+        btnMinimize.setForeground(new Color(255, 68, 87));
+    }//GEN-LAST:event_btnMinimizeMouseEntered
+
+    private void btnMinimizeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMinimizeMouseExited
+        // TODO add your handling code here:
+        btnMinimize.setForeground(Color.WHITE);
+    }//GEN-LAST:event_btnMinimizeMouseExited
+
     
     /**
      * @param args the command line arguments
@@ -423,6 +507,9 @@ public class PerfilJugador extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane agentes;
     private javax.swing.JPanel agentesPanel;
+    private javax.swing.JLabel background;
+    private javax.swing.JLabel btnMinimize;
+    private javax.swing.JLabel btnX;
     private javax.swing.JToggleButton cerrarbt;
     private javax.swing.JToggleButton historialbt;
     private javax.swing.JToggleButton historialbt1;
@@ -433,7 +520,6 @@ public class PerfilJugador extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
@@ -451,10 +537,12 @@ public class PerfilJugador extends javax.swing.JFrame {
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblRango;
     private javax.swing.JLabel lblWinrate;
+    private javax.swing.JLabel logo;
     private javax.swing.JScrollPane mapas;
     private javax.swing.JPanel mapasPanel;
     private javax.swing.JScrollPane roles;
     private javax.swing.JPanel rolesPanel;
     private javax.swing.JPanel seccionPerfil;
+    private javax.swing.JPanel titleBar;
     // End of variables declaration//GEN-END:variables
 }

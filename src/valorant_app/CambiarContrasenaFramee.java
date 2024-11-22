@@ -4,6 +4,7 @@
  */
 package valorant_app;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -24,7 +25,10 @@ public class CambiarContrasenaFramee extends javax.swing.JFrame {
      */
     public CambiarContrasenaFramee() {
         initComponents();  // No se modifica esta línea
+        this.setTitle("Valorant Tracker");
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/imagenes/valoLogo.png")));
         query = new Query();
+        
         
         // Crear un JPanel personalizado para el fondo
         JPanel panelFondo = new JPanel() {
@@ -45,12 +49,14 @@ public class CambiarContrasenaFramee extends javax.swing.JFrame {
         // Configuración para que el panel de fondo ocupe toda la ventana
         panelFondo.setLayout(new BorderLayout());
         setContentPane(panelFondo);
+        
 
         // Hacer jPanel1 transparente para que el fondo se vea
         jPanel1.setOpaque(false);
 
         // Añadir jPanel1 sobre el fondo (sin afectar la imagen de fondo)
         panelFondo.add(jPanel1, BorderLayout.CENTER);
+        //panelFondo.add(jPanel2);
         
         // Centrar el JFrame en la pantalla
         setLocationRelativeTo(null);
@@ -74,8 +80,13 @@ public class CambiarContrasenaFramee extends javax.swing.JFrame {
         contranueva = new javax.swing.JTextField();
         Cambiar = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        btnMinimize = new javax.swing.JLabel();
+        btnX = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setPreferredSize(new java.awt.Dimension(420, 420));
 
@@ -137,7 +148,7 @@ public class CambiarContrasenaFramee extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(78, Short.MAX_VALUE)
+                .addContainerGap(49, Short.MAX_VALUE)
                 .addComponent(jLabel4)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
@@ -156,20 +167,52 @@ public class CambiarContrasenaFramee extends javax.swing.JFrame {
                 .addGap(70, 70, 70))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 438, 390));
+
+        jPanel2.setBackground(new java.awt.Color(21, 44, 54));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Valorant Tracker");
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 140, 30));
+
+        btnMinimize.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
+        btnMinimize.setForeground(new java.awt.Color(255, 255, 255));
+        btnMinimize.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnMinimize.setText("-");
+        btnMinimize.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnMinimizeMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnMinimizeMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnMinimizeMouseExited(evt);
+            }
+        });
+        jPanel2.add(btnMinimize, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 0, 20, 20));
+
+        btnX.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnX.setForeground(new java.awt.Color(255, 255, 255));
+        btnX.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnX.setText("X");
+        btnX.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnXMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnXMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnXMouseExited(evt);
+            }
+        });
+        jPanel2.add(btnX, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 0, 20, -1));
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 440, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -179,27 +222,66 @@ public class CambiarContrasenaFramee extends javax.swing.JFrame {
     String contrasenaActual = contraactual.getText();
     String nuevaContrasena = contranueva.getText();
 
+    
+    
+        
     // Validar que no estén vacíos los campos
     if (correoElectronico.isEmpty() || contrasenaActual.isEmpty() || nuevaContrasena.isEmpty()) {
         JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
-        return;
-    }//GEN-LAST:event_CambiarActionPerformed
-boolean exito = query.cambiarContrasena(correoElectronico, contrasenaActual, nuevaContrasena);
-
-    // Mostrar mensaje de éxito o error dependiendo del resultado
-    if (exito) {
-        JOptionPane.showMessageDialog(this, "Contraseña cambiada exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        //return;
         
-        // Cerrar el JFrame de cambiar contraseña
-        dispose();
         
-        // Abrir el JFrame de login
-        login loginFrame = new login();
-        loginFrame.setVisible(true);
     } else {
-        JOptionPane.showMessageDialog(this, "Error al cambiar la contraseña. Verifica tus datos.", "Error", JOptionPane.ERROR_MESSAGE);
+        boolean exito = query.cambiarContrasena(correoElectronico, contrasenaActual, nuevaContrasena);
+        
+
+        // Mostrar mensaje de éxito o error dependiendo del resultado
+        if (exito) {
+            JOptionPane.showMessageDialog(this, "Contraseña cambiada exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+            // Cerrar el JFrame de cambiar contraseña
+            dispose();
+
+            // Abrir el JFrame de login
+            login loginFrame = new login();
+            loginFrame.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Error al cambiar la contraseña. Verifica tus datos.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
-    }
+    }//GEN-LAST:event_CambiarActionPerformed
+
+    private void btnXMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXMouseEntered
+        // TODO add your handling code here:
+        btnX.setForeground(new Color(255, 68, 87));
+    }//GEN-LAST:event_btnXMouseEntered
+
+    private void btnXMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXMouseExited
+        // TODO add your handling code here:
+        btnX.setForeground(Color.WHITE);
+    }//GEN-LAST:event_btnXMouseExited
+
+    private void btnMinimizeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMinimizeMouseEntered
+        // TODO add your handling code here:
+        btnMinimize.setForeground(new Color(255, 68, 87));
+    }//GEN-LAST:event_btnMinimizeMouseEntered
+
+    private void btnMinimizeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMinimizeMouseExited
+        // TODO add your handling code here:
+        btnMinimize.setForeground(Color.WHITE);
+    }//GEN-LAST:event_btnMinimizeMouseExited
+
+    private void btnXMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXMouseClicked
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_btnXMouseClicked
+
+    private void btnMinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMinimizeMouseClicked
+        // TODO add your handling code here:
+        this.setState(ICONIFIED);
+    }//GEN-LAST:event_btnMinimizeMouseClicked
+
+        
     
     /**
      * @param args the command line arguments
@@ -238,6 +320,8 @@ boolean exito = query.cambiarContrasena(correoElectronico, contrasenaActual, nue
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Cambiar;
+    private javax.swing.JLabel btnMinimize;
+    private javax.swing.JLabel btnX;
     private javax.swing.JTextField contraactual;
     private javax.swing.JTextField contranueva;
     private javax.swing.JTextField correo;
@@ -245,6 +329,8 @@ boolean exito = query.cambiarContrasena(correoElectronico, contrasenaActual, nue
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
 }

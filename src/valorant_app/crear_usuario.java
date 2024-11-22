@@ -5,7 +5,21 @@
 package valorant_app;
 
 import java.awt.Color;
+import java.io.File;
 import javax.swing.JOptionPane;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JButton;
+
+
+import java.awt.Image;
+import java.awt.Toolkit;
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.IOException;
+
+
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -21,6 +35,8 @@ public class crear_usuario extends javax.swing.JFrame {
     public crear_usuario() {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.setTitle("Valorant Tracker");
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/imagenes/valoLogo.png")));
     }
 
     /**
@@ -33,7 +49,14 @@ public class crear_usuario extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel2 = new javax.swing.JLabel();
+        titleBar = new javax.swing.JPanel();
+        btnX = new javax.swing.JLabel();
+        btnMinimize = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
+        titleBar1 = new javax.swing.JPanel();
+        btnX1 = new javax.swing.JLabel();
+        btnMinimize1 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         contenido = new javax.swing.JPanel();
         btnCrear = new javax.swing.JButton();
         txtContrasena = new javax.swing.JTextField();
@@ -44,13 +67,96 @@ public class crear_usuario extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         btnVolver = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
+        background = new javax.swing.JLabel();
 
         jLabel2.setText("jLabel2");
 
+        titleBar.setBackground(new java.awt.Color(21, 44, 54));
+        titleBar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnX.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnX.setForeground(new java.awt.Color(255, 255, 255));
+        btnX.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnX.setText("X");
+        btnX.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnXMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnXMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnXMouseExited(evt);
+            }
+        });
+        titleBar.add(btnX, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 0, 20, 30));
+
+        btnMinimize.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
+        btnMinimize.setForeground(new java.awt.Color(255, 255, 255));
+        btnMinimize.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnMinimize.setText("-");
+        btnMinimize.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnMinimizeMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnMinimizeMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnMinimizeMouseExited(evt);
+            }
+        });
+        titleBar.add(btnMinimize, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 0, 20, 30));
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        titleBar1.setBackground(new java.awt.Color(21, 44, 54));
+        titleBar1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnX1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnX1.setForeground(new java.awt.Color(255, 255, 255));
+        btnX1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnX1.setText("X");
+        btnX1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnX1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnX1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnX1MouseExited(evt);
+            }
+        });
+        titleBar1.add(btnX1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 0, 20, 30));
+
+        btnMinimize1.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
+        btnMinimize1.setForeground(new java.awt.Color(255, 255, 255));
+        btnMinimize1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnMinimize1.setText("-");
+        btnMinimize1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnMinimize1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnMinimize1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnMinimize1MouseExited(evt);
+            }
+        });
+        titleBar1.add(btnMinimize1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 0, 20, 30));
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("Valorant Tracker");
+        titleBar1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 140, 30));
+
+        jPanel1.add(titleBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 30));
 
         contenido.setBackground(new java.awt.Color(255, 255, 255));
         contenido.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 5, true));
@@ -88,52 +194,6 @@ public class crear_usuario extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("Crear un Usuario Nuevo");
 
-        javax.swing.GroupLayout contenidoLayout = new javax.swing.GroupLayout(contenido);
-        contenido.setLayout(contenidoLayout);
-        contenidoLayout.setHorizontalGroup(
-            contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contenidoLayout.createSequentialGroup()
-                .addGap(8, 27, Short.MAX_VALUE)
-                .addGroup(contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel4)
-                        .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
-                        .addComponent(jLabel5)
-                        .addComponent(txtContrasena)
-                        .addComponent(txtCorreo))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel1)
-                        .addComponent(jLabel3)))
-                .addGap(28, 28, 28))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contenidoLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnCrear, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(96, 96, 96))
-        );
-        contenidoLayout.setVerticalGroup(
-            contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contenidoLayout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnCrear, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12))
-        );
-
-        jPanel1.add(contenido, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 340, 320));
-
         btnVolver.setBackground(new java.awt.Color(179, 61, 64));
         btnVolver.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnVolver.setForeground(new java.awt.Color(255, 255, 255));
@@ -152,10 +212,60 @@ public class crear_usuario extends javax.swing.JFrame {
                 btnVolverActionPerformed(evt);
             }
         });
-        jPanel1.add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 70, 30));
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/valoBackground.png"))); // NOI18N
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -3, 400, 400));
+        javax.swing.GroupLayout contenidoLayout = new javax.swing.GroupLayout(contenido);
+        contenido.setLayout(contenidoLayout);
+        contenidoLayout.setHorizontalGroup(
+            contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contenidoLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnCrear, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(96, 96, 96))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contenidoLayout.createSequentialGroup()
+                .addGap(8, 27, Short.MAX_VALUE)
+                .addGroup(contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel4)
+                            .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
+                            .addComponent(jLabel5)
+                            .addComponent(txtContrasena)
+                            .addComponent(txtCorreo))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contenidoLayout.createSequentialGroup()
+                            .addComponent(jLabel3)
+                            .addGap(172, 172, 172)))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(28, 28, 28))
+        );
+        contenidoLayout.setVerticalGroup(
+            contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contenidoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnCrear, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12))
+        );
+
+        jPanel1.add(contenido, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 340, 310));
+
+        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/valorant400inicioplantilla.jpg"))); // NOI18N
+        jPanel1.add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 400, 400));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -222,6 +332,66 @@ public class crear_usuario extends javax.swing.JFrame {
         btnVolver.setForeground(Color.WHITE);
     }//GEN-LAST:event_btnVolverMouseExited
 
+    private void btnXMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXMouseClicked
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_btnXMouseClicked
+
+    private void btnXMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXMouseEntered
+        // TODO add your handling code here:
+        btnX.setForeground(new Color(255, 68, 87));
+    }//GEN-LAST:event_btnXMouseEntered
+
+    private void btnXMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXMouseExited
+        // TODO add your handling code here:
+        btnX.setForeground(Color.WHITE);
+    }//GEN-LAST:event_btnXMouseExited
+
+    private void btnMinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMinimizeMouseClicked
+        // TODO add your handling code here:
+        this.setState(ICONIFIED);
+    }//GEN-LAST:event_btnMinimizeMouseClicked
+
+    private void btnMinimizeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMinimizeMouseEntered
+        // TODO add your handling code here:
+        btnMinimize.setForeground(new Color(255, 68, 87));
+    }//GEN-LAST:event_btnMinimizeMouseEntered
+
+    private void btnMinimizeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMinimizeMouseExited
+        // TODO add your handling code here:
+        btnMinimize.setForeground(Color.WHITE);
+    }//GEN-LAST:event_btnMinimizeMouseExited
+
+    private void btnX1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnX1MouseClicked
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_btnX1MouseClicked
+
+    private void btnX1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnX1MouseEntered
+        // TODO add your handling code here:
+        btnX1.setForeground(new Color(255, 68, 87));
+    }//GEN-LAST:event_btnX1MouseEntered
+
+    private void btnX1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnX1MouseExited
+        // TODO add your handling code here:
+        btnX1.setForeground(Color.WHITE);
+    }//GEN-LAST:event_btnX1MouseExited
+
+    private void btnMinimize1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMinimize1MouseClicked
+        // TODO add your handling code here:
+        this.setState(ICONIFIED);
+    }//GEN-LAST:event_btnMinimize1MouseClicked
+
+    private void btnMinimize1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMinimize1MouseEntered
+        // TODO add your handling code here:
+        btnMinimize1.setForeground(new Color(255, 68, 87));
+    }//GEN-LAST:event_btnMinimize1MouseEntered
+
+    private void btnMinimize1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMinimize1MouseExited
+        // TODO add your handling code here:
+        btnMinimize1.setForeground(Color.WHITE);
+    }//GEN-LAST:event_btnMinimize1MouseExited
+
     /**
      * @param args the command line arguments
      */
@@ -258,8 +428,13 @@ public class crear_usuario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel background;
     private javax.swing.JButton btnCrear;
+    private javax.swing.JLabel btnMinimize;
+    private javax.swing.JLabel btnMinimize1;
     private javax.swing.JButton btnVolver;
+    private javax.swing.JLabel btnX;
+    private javax.swing.JLabel btnX1;
     private javax.swing.JPanel contenido;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -268,6 +443,8 @@ public class crear_usuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel titleBar;
+    private javax.swing.JPanel titleBar1;
     private javax.swing.JTextField txtContrasena;
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtNombre;

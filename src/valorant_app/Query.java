@@ -323,7 +323,7 @@ public class Query extends Conexion {
         try {
             resultado = instruccion.executeQuery("SELECT rango.nombre FROM jugador " +
                     "INNER JOIN rango ON rango.id_rango = jugador.id_rango " +
-                    "WHERE jugador.nombre = 'PlayerOne';");
+                    "WHERE jugador.nombre = '"+nombreUsuario+"';");
             resultado.next();
             rango = resultado.getString(1);
         } catch (SQLException ex) {

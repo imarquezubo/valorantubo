@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -52,6 +53,43 @@ public class PerfilJugador extends javax.swing.JFrame {
         lblRango.setText(query.getRango(nombreUsuario));
         this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/imagenes/valoLogo.png")));
         this.setTitle("Valorant Tracker");
+        llenarIconoRango();
+    }
+    
+    public void llenarIconoRango(){
+        String rango = query.getRango(nombreUsuario);
+        lblRankIcon.setText("");
+        
+        switch(rango){
+            case "Hierro" -> {
+                
+                lblRankIcon.setIcon(new ImageIcon(getClass().getResource("/rank_icons/hierro3.png")));
+            }
+            case "Bronce" -> {
+                lblRankIcon.setIcon(new ImageIcon(getClass().getResource("/rank_icons/bronce3.png")));
+            }
+            case "Plata" -> {
+                lblRankIcon.setIcon(new ImageIcon(getClass().getResource("/rank_icons/plata3.png")));
+            }
+            case "Oro" -> {
+                lblRankIcon.setIcon(new ImageIcon(getClass().getResource("/rank_icons/oro3.png")));
+            }
+            case "Platino" -> {
+                lblRankIcon.setIcon(new ImageIcon(getClass().getResource("/rank_icons/platino3.png")));
+            }
+            case "Diamante" -> {
+                lblRankIcon.setIcon(new ImageIcon(getClass().getResource("/rank_icons/diamante3.png")));
+            }
+            case "Inmortal" -> {
+                lblRankIcon.setIcon(new ImageIcon(getClass().getResource("/rank_icons/inmortal3.png")));
+            }
+            case "Radiante" -> {
+                lblRankIcon.setIcon(new ImageIcon(getClass().getResource("/rank_icons/radiante.png")));
+            }
+            case "unranked" -> {
+                lblRango.setText("Sin Rango");
+            }
+        }
     }
     
     public void llenarAgentes() {
@@ -136,7 +174,6 @@ public class PerfilJugador extends javax.swing.JFrame {
         agentes = new javax.swing.JScrollPane();
         agentesPanel = new javax.swing.JPanel();
         seccionPerfil = new RoundedPanel(20, new Color(21,44,54));
-        logo = new javax.swing.JLabel();
         lblNombre = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         lblCorreo = new javax.swing.JLabel();
@@ -154,7 +191,7 @@ public class PerfilJugador extends javax.swing.JFrame {
         lblRango = new javax.swing.JLabel();
         lblWinrate = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
+        lblRankIcon = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
@@ -256,10 +293,6 @@ public class PerfilJugador extends javax.swing.JFrame {
         seccionPerfil.setPreferredSize(new java.awt.Dimension(969, 160));
         seccionPerfil.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/valorant1_1.png"))); // NOI18N
-        logo.setText("jLabel4");
-        seccionPerfil.add(logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 0, 290, 60));
-
         lblNombre.setBackground(new java.awt.Color(228, 228, 228));
         lblNombre.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         lblNombre.setForeground(new java.awt.Color(228, 228, 228));
@@ -343,7 +376,7 @@ public class PerfilJugador extends javax.swing.JFrame {
         lblRango.setForeground(new java.awt.Color(228, 228, 228));
         lblRango.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblRango.setText("[rank]");
-        seccionPerfil.add(lblRango, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 30, 110, -1));
+        seccionPerfil.add(lblRango, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 30, 110, -1));
 
         lblWinrate.setFont(new java.awt.Font("Segoe UI", 1, 28)); // NOI18N
         lblWinrate.setForeground(new java.awt.Color(255, 255, 255));
@@ -356,11 +389,11 @@ public class PerfilJugador extends javax.swing.JFrame {
         jLabel15.setText("Winrate");
         seccionPerfil.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 90, 100, -1));
 
-        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel16.setText("[RankIcon]");
-        jLabel16.setPreferredSize(new java.awt.Dimension(68, 68));
-        seccionPerfil.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 20, -1, -1));
+        lblRankIcon.setForeground(new java.awt.Color(255, 255, 255));
+        lblRankIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblRankIcon.setText("[RankIcon]");
+        lblRankIcon.setPreferredSize(new java.awt.Dimension(68, 68));
+        seccionPerfil.add(lblRankIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 20, -1, -1));
 
         jPanel6.setPreferredSize(new java.awt.Dimension(2, 40));
 
@@ -517,7 +550,6 @@ public class PerfilJugador extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
@@ -536,8 +568,8 @@ public class PerfilJugador extends javax.swing.JFrame {
     private javax.swing.JLabel lblNivel;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblRango;
+    private javax.swing.JLabel lblRankIcon;
     private javax.swing.JLabel lblWinrate;
-    private javax.swing.JLabel logo;
     private javax.swing.JScrollPane mapas;
     private javax.swing.JPanel mapasPanel;
     private javax.swing.JScrollPane roles;

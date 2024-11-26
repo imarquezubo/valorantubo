@@ -42,17 +42,22 @@ public class PerfilJugador extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setResizable(false);
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/imagenes/valoLogo.png")));
+        this.setTitle("Valorant Tracker");
+        
         lblNombre.setText(nombreUsuario);
         lblCorreo.setText(String.valueOf(query.getCorreo(nombreUsuario)));
         lblNivel.setText(String.valueOf(query.getNivel(nombreUsuario)));
+        
         lblAsistencias.setText(String.valueOf(query.getAsistenciasTotales(nombreUsuario)));
+        
+        
         lblKills.setText(String.valueOf(query.getKillsTotales(nombreUsuario)));
         lblMuertes.setText(String.valueOf(query.getMuertesTotales(nombreUsuario)));
         lblACS.setText(String.valueOf(Math.round(query.getACSPromedio(nombreUsuario))));
         lblWinrate.setText(String.valueOf(query.getWinrateTotal(nombreUsuario)) + "%");
         lblRango.setText(query.getRango(nombreUsuario));
-        this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/imagenes/valoLogo.png")));
-        this.setTitle("Valorant Tracker");
+        
         llenarIconoRango();
     }
     

@@ -230,7 +230,10 @@ public class Query extends Conexion {
                 "INNER JOIN estadistica ON estadistica.id_estadistica = partida_jugador.id_estadistica " +
                 "WHERE jugador.nombre = '"+nombreUsuario+"';");
             resultado.next();
-            asistenciasTotales = Integer.parseInt(resultado.getString(1));
+            if(resultado.getString(1)!=null){
+                asistenciasTotales = Integer.parseInt(resultado.getString(1));
+            } 
+            
         } catch (SQLException ex) {
             Logger.getLogger(Query.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -249,7 +252,10 @@ public class Query extends Conexion {
                 "INNER JOIN estadistica ON estadistica.id_estadistica = partida_jugador.id_estadistica " +
                 "WHERE jugador.nombre = '"+nombreUsuario+"';");
             resultado.next();
-            killsTotales = Integer.parseInt(resultado.getString(1));
+            if(resultado.getString(1)!=null) {
+                killsTotales = Integer.parseInt(resultado.getString(1));
+            }
+            
         } catch (SQLException ex) {
             Logger.getLogger(Query.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -268,7 +274,10 @@ public class Query extends Conexion {
                 "INNER JOIN estadistica ON estadistica.id_estadistica = partida_jugador.id_estadistica " +
                 "WHERE jugador.nombre = '"+nombreUsuario+"';");
             resultado.next();
-            muertesTotales = Integer.parseInt(resultado.getString(1));
+            if(resultado.getString(1) != null){
+                muertesTotales = Integer.parseInt(resultado.getString(1));
+            }
+            
         } catch (SQLException ex) {
             Logger.getLogger(Query.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -287,7 +296,10 @@ public class Query extends Conexion {
                 "INNER JOIN estadistica ON estadistica.id_estadistica = partida_jugador.id_estadistica " +
                 "WHERE jugador.nombre = '"+nombreUsuario+"';");
             resultado.next();
-            acs = Float.parseFloat(resultado.getString(1));
+            if(resultado.getString(1) != null){
+                acs = Float.parseFloat(resultado.getString(1));
+            }
+            
         } catch (SQLException ex) {
             Logger.getLogger(Query.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -307,7 +319,10 @@ public class Query extends Conexion {
                 "INNER JOIN equipo ON equipo.id_equipo = partida_jugador.id_equipo " +
                 "WHERE jugador.nombre = '"+nombreUsuario+"';");
             resultado.next();
-            winRate = Integer.parseInt(resultado.getString(1));
+            if(resultado.getString(1) != null){
+                winRate = Integer.parseInt(resultado.getString(1));
+            }
+            
         } catch (SQLException ex) {
             Logger.getLogger(Query.class.getName()).log(Level.SEVERE, null, ex);
         } finally {

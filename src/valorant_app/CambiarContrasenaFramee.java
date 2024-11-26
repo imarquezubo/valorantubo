@@ -240,7 +240,9 @@ public class CambiarContrasenaFramee extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Contraseña cambiada exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 
             // Cerrar el JFrame de cambiar contraseña
-            dispose();
+            //dispose();
+            System.exit(0);
+            
 
             // Abrir el JFrame de login
             login loginFrame = new login();
@@ -249,6 +251,7 @@ public class CambiarContrasenaFramee extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Error al cambiar la contraseña. Verifica tus datos.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+    
     }//GEN-LAST:event_CambiarActionPerformed
 
     private void btnXMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXMouseEntered
@@ -273,7 +276,7 @@ public class CambiarContrasenaFramee extends javax.swing.JFrame {
 
     private void btnXMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXMouseClicked
         // TODO add your handling code here:
-        System.exit(0);
+        dispose();
     }//GEN-LAST:event_btnXMouseClicked
 
     private void btnMinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMinimizeMouseClicked

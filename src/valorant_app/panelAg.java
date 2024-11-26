@@ -67,40 +67,50 @@ public class panelAg extends javax.swing.JPanel {
         lblDerrotas = new javax.swing.JLabel();
         lblWinrate = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(255, 255, 255));
+        setBackground(new java.awt.Color(21, 44, 54));
         setBorder(javax.swing.BorderFactory.createEtchedBorder());
         setMaximumSize(new java.awt.Dimension(830, 150));
         setPreferredSize(new java.awt.Dimension(830, 150));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         Nombre_Mapa.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        Nombre_Mapa.setForeground(new java.awt.Color(255, 255, 255));
         Nombre_Mapa.setText("Derrotas:");
         add(Nombre_Mapa, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 100, 112, 29));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Partidas:");
         add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 20, -1, 29));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Victorias:");
         add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 60, 99, 29));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Winrate:");
         add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 60, 104, 30));
 
+        lblAgente.setForeground(new java.awt.Color(255, 255, 255));
+        lblAgente.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblAgente.setText("[n/n]");
-        add(lblAgente, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 107, 29));
+        add(lblAgente, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 100, 100));
 
+        lblVictorias.setForeground(new java.awt.Color(255, 255, 255));
         lblVictorias.setText("[n/n]");
         add(lblVictorias, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 60, 107, 29));
 
+        lblPartidas.setForeground(new java.awt.Color(255, 255, 255));
         lblPartidas.setText("[n/n]");
         add(lblPartidas, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 20, 107, 29));
 
+        lblDerrotas.setForeground(new java.awt.Color(255, 255, 255));
         lblDerrotas.setText("[n/n]");
         add(lblDerrotas, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 100, 107, 29));
 
+        lblWinrate.setForeground(new java.awt.Color(255, 255, 255));
         lblWinrate.setText("[n/n]");
         add(lblWinrate, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 60, 60, 30));
     }// </editor-fold>//GEN-END:initComponents
